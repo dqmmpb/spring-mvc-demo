@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <properties resource="config/${package.env}/jdbc.properties"/>
+
+  <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+    <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+      <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+      <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+      <property name="caseSensitive" value="false"/>
+    </plugin>
+    <jdbcConnection driverClass="${jdbc.driverClassName}"
+                    connectionURL="${jdbc.url}"
+                    userId="${jdbc.username}"
+                    password="${jdbc.password}">
+    </jdbcConnection>
+
+    <!--POJO 路径 TODO 每个开发需要手动配置-->
+    <javaModelGenerator targetPackage="com.alphabeta.platform.domain.model"
+                        targetProject="${targetJavaProject}"/>
+
+    <!--sql mapper 路径 TODO 每个开发需要手动配置-->
+    <sqlMapGenerator targetPackage="mapper"
+                     targetProject="${targetResourcesProject}"/>
+
+    <!--mapper dao 路径 TODO 每个开发需要手动配置-->
+    <javaClientGenerator targetPackage="com.alphabeta.platform.dao.mapper"
+                         targetProject="${targetJavaProject}"
+                         type="XMLMAPPER"/>
+
+    <!--需要自动生成的表-->
+    <table tableName="sys_priv" domainObjectName="SysPriv"/>
+    <table tableName="sys_role" domainObjectName="SysRole"/>
+    <table tableName="sys_role_priv" domainObjectName="SysRolePriv"/>
+    <table tableName="sys_user" domainObjectName="SysUser"/>
+    <table tableName="sys_user_role" domainObjectName="SysUserRole"/>
+    <table tableName="sys_user_session" domainObjectName="SysUserSession"/>
+    <!---->
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,12 @@
+## idea 文件
+*.iml
+.idea/
+
+## 打包后临时文件
+*/target/
+
+.*
+!.gitignore
+
+## 日志文件目录
+catalina.base*
