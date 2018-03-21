@@ -196,7 +196,6 @@ public class JsonUtil {
             if (v instanceof JSONArray) {
                 List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-                @SuppressWarnings("unchecked")
                 Iterator<Object> it = ((JSONArray) v).iterator();
                 while (it.hasNext()) {
                     JSONObject json2 = (JSONObject) it.next();
