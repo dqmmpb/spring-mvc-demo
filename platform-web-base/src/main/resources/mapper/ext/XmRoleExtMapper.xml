@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.XmRoleExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.XmRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="role_id" property="roleId" jdbcType="BIGINT"/>
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
+    <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+    <result column="state" property="state" jdbcType="CHAR"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <select id="checkRoleCode" resultType="java.lang.Boolean" parameterType="java.util.Map">
+    SELECT EXISTS (
+    SELECT role_id FROM xm_role
+    WHERE role_code=#{roleCode}
+    <if test="roleId != null">
+      AND role_id!=#{roleId}
+    </if>
+    )
+  </select>
+
+  <select id="queryRolesByManagerId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT
+    A.role_id,
+    A.role_code,
+    A.role_name,
+    A.state,
+    A.create_time,
+    A.update_time,
+    A.description
+    FROM xm_role A, xm_manager_role B
+    WHERE B.manager_id=#{managerId} AND A.role_id=B.role_id
+    ORDER by A.role_name
+  </select>
+</mapper>

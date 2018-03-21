@@ -14,7 +14,8 @@
   <name>demo</name>
 
   <modules>
-    <module>platform</module>
+    <module>platform-core</module>
+    <module>platform-web-base</module>
   </modules>
 
   <!-- ============================== -->

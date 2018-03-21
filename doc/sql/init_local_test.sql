@@ -27,7 +27,7 @@ CREATE TABLE `sys_user` (
   `name` varchar(128) DEFAULT NULL COMMENT '姓名',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
   `department` varchar(255) DEFAULT NULL COMMENT '部门',
-  `disable_status` int(5) NOT NULL DEFAULT '1' COMMENT '禁用状态：1启用，2禁用，默认1',
+  `status` int(5) NOT NULL DEFAULT '1' COMMENT '状态：1启用，2禁用，默认1',
   `state` char(1) NOT NULL DEFAULT 'A' COMMENT 'A-可用;X-不可用',
   `last_login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -38,9 +38,9 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '13819493700', '3fcce7190bf72f848cbfc6a3b1b62616', 've8zPuU493fi23fQh36amg==', null, null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-20 22:57:02');
-INSERT INTO `sys_user` VALUES ('2', '13819493701', '9238e845efe5040f6936e2773936b00d', 'HC4oLbK7cVhDnfApn0OcqA==', null, null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-20 22:57:02');
-INSERT INTO `sys_user` VALUES ('3', '13819493702', 'd711f8557c452d084b7e5ac36dcfffd8', 'kW2kHUa/TBNJ7xcGDinDmg==', null, null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-20 22:57:02');
+INSERT INTO `sys_user` VALUES ('1', '13819493700', '18cfcfc1b2284684b571d9787562b7ae', 'ZjvIrlAhFqNasRfpVzEX2w==', '邓启明', null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-28 17:23:30');
+INSERT INTO `sys_user` VALUES ('2', '13819493701', '692b05d0cac4fd9758ddaab1770f324b', 'AEwWhiRUlNek/b6t2giVJw==', null, null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-20 22:57:02');
+INSERT INTO `sys_user` VALUES ('3', '13819493702', '5b04c903fa0652ed5dd7be731347e24a', '0jiFXFbLdNSRwgi2IUqbzg==', null, null, null, '1', 'A', null, '2018-02-20 22:57:02', '2018-02-20 22:57:02');
 
 -- ----------------------------
 -- Table structure for sys_user_role

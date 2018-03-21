@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.XmPrivExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.XmPriv">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="priv_id" property="privId" jdbcType="BIGINT"/>
+    <result column="parent_priv_id" property="parentPrivId" jdbcType="BIGINT"/>
+    <result column="priv_code" property="privCode" jdbcType="VARCHAR"/>
+    <result column="priv_name" property="privName" jdbcType="VARCHAR"/>
+    <result column="type" property="type" jdbcType="INTEGER"/>
+    <result column="url" property="url" jdbcType="VARCHAR"/>
+    <result column="path" property="path" jdbcType="VARCHAR"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+    <result column="state" property="state" jdbcType="CHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <select id="checkPrivCode" resultType="java.lang.Boolean" parameterType="java.util.Map">
+    SELECT EXISTS (
+    SELECT priv_id FROM xm_priv
+    WHERE priv_code=#{privCode}
+    <if test="privId != null">
+      AND priv_id!=#{privId}
+    </if>
+    )
+  </select>
+  <select id="queryPrivsByRoleIds" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT DISTINCT
+    B.priv_id,
+    B.parent_priv_id,
+    B.priv_code,
+    B.priv_name,
+    B.type,
+    B.url,
+    B.path,
+    B.description,
+    B.state,
+    B.create_time,
+    B.update_time
+    FROM xm_role_priv A LEFT JOIN xm_priv B ON B.priv_id=A.priv_id AND B.state='A'
+    WHERE A.state='A'
+    AND A.role_id IN
+    <foreach collection="roleIds" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+    <if test="privType != null">
+      AND B.type=#{privType}
+    </if>
+    ORDER BY B.type, B.priv_id, B.priv_code, B.parent_priv_id
+  </select>
+</mapper>

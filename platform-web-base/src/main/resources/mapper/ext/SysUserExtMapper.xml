@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.SysUserExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" property="userId" jdbcType="BIGINT"/>
+    <result column="phone" property="phone" jdbcType="VARCHAR"/>
+    <result column="password" property="password" jdbcType="VARCHAR"/>
+    <result column="salt" property="salt" jdbcType="VARCHAR"/>
+    <result column="name" property="name" jdbcType="VARCHAR"/>
+    <result column="email" property="email" jdbcType="VARCHAR"/>
+    <result column="department" property="department" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="INTEGER"/>
+    <result column="state" property="state" jdbcType="CHAR"/>
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <select id="checkPhone" resultType="java.lang.Boolean" parameterType="java.util.Map">
+    SELECT EXISTS(
+    SELECT user_id FROM xm_user
+    WHERE phone=#{phone}
+    <if test="userId != null">
+      user_id != #{userId}
+    </if>
+    )
+  </select>
+
+  <select id="getManagersByRoleId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT
+    A.user_id,
+    A.phone,
+    A.password,
+    A.salt,
+    A.name,
+    A.email,
+    A.department,
+    A.disable_status,
+    A.last_login_time,
+    A.create_time,
+    A.update_time,
+    A.state
+    FROM xm_user A, xm_user_role B
+    WHERE A.user_id = B.user_id AND B.role_id=#{roleId}
+    ORDER BY A.phone
+  </select>
+</mapper>
