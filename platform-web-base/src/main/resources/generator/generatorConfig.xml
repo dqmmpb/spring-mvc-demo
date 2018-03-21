@@ -23,7 +23,7 @@
     </jdbcConnection>
 
     <!--POJO 路径 TODO 每个开发需要手动配置-->
-    <javaModelGenerator targetPackage="com.alphabeta.platform.domain.model"
+    <javaModelGenerator targetPackage="com.alphabeta.platform.base.domain.model"
                         targetProject="${targetJavaProject}"/>
 
     <!--sql mapper 路径 TODO 每个开发需要手动配置-->
@@ -31,7 +31,7 @@
                      targetProject="${targetResourcesProject}"/>
 
     <!--mapper dao 路径 TODO 每个开发需要手动配置-->
-    <javaClientGenerator targetPackage="com.alphabeta.platform.dao.mapper"
+    <javaClientGenerator targetPackage="com.alphabeta.platform.base.dao.mapper"
                          targetProject="${targetJavaProject}"
                          type="XMLMAPPER"/>
 

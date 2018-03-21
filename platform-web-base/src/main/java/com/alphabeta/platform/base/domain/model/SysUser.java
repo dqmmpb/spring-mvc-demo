@@ -1,10 +1,8 @@
 package com.alphabeta.platform.base.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sys_user")
 public class SysUser implements Serializable {
@@ -43,10 +41,9 @@ public class SysUser implements Serializable {
     private String department;
 
     /**
-     * 禁用状态：1启用，2禁用，默认1
+     * 状态：1启用，2禁用，默认1
      */
-    @Column(name = "disable_status")
-    private Integer disableStatus;
+    private Integer status;
 
     /**
      * A-可用;X-不可用
@@ -190,21 +187,21 @@ public class SysUser implements Serializable {
     }
 
     /**
-     * 获取禁用状态：1启用，2禁用，默认1
+     * 获取状态：1启用，2禁用，默认1
      *
-     * @return disable_status - 禁用状态：1启用，2禁用，默认1
+     * @return status - 状态：1启用，2禁用，默认1
      */
-    public Integer getDisableStatus() {
-        return disableStatus;
+    public Integer getStatus() {
+        return status;
     }
 
     /**
-     * 设置禁用状态：1启用，2禁用，默认1
+     * 设置状态：1启用，2禁用，默认1
      *
-     * @param disableStatus 禁用状态：1启用，2禁用，默认1
+     * @param status 状态：1启用，2禁用，默认1
      */
-    public void setDisableStatus(Integer disableStatus) {
-        this.disableStatus = disableStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     /**

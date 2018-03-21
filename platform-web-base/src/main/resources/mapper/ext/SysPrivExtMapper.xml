@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.XmPrivExtMapper">
-  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.XmPriv">
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.SysPrivExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.SysPriv">
     <!--
       WARNING - @mbg.generated
     -->
@@ -19,7 +19,7 @@
   </resultMap>
   <select id="checkPrivCode" resultType="java.lang.Boolean" parameterType="java.util.Map">
     SELECT EXISTS (
-    SELECT priv_id FROM xm_priv
+    SELECT priv_id FROM sys_priv
     WHERE priv_code=#{privCode}
     <if test="privId != null">
       AND priv_id!=#{privId}
@@ -39,7 +39,7 @@
     B.state,
     B.create_time,
     B.update_time
-    FROM xm_role_priv A LEFT JOIN xm_priv B ON B.priv_id=A.priv_id AND B.state='A'
+    FROM sys_role_priv A LEFT JOIN sys_priv B ON B.priv_id=A.priv_id AND B.state='A'
     WHERE A.state='A'
     AND A.role_id IN
     <foreach collection="roleIds" item="item" open="(" separator="," close=")">

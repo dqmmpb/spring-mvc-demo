@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alphabeta.platform.core.dao.mapper.SysUserSessionMapper" >
-  <resultMap id="BaseResultMap" type="com.alphabeta.platform.core.domain.model.SysUserSession" >
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.SysUserSessionExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.SysUserSession">
     <!--
       WARNING - @mbg.generated
     -->

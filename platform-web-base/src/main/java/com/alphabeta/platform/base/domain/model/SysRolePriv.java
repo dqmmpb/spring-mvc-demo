@@ -1,10 +1,8 @@
 package com.alphabeta.platform.base.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sys_role_priv")
 public class SysRolePriv implements Serializable {

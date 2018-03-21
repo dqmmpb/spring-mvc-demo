@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.XmRolePrivExtMapper">
-  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.XmRolePriv">
+<mapper namespace="com.alphabeta.platform.base.dao.mapper.ext.SysRolePrivExtMapper">
+  <resultMap id="BaseResultMap" type="com.alphabeta.platform.base.domain.model.SysRolePriv">
     <!--
       WARNING - @mbg.generated
     -->
@@ -13,21 +13,21 @@
   </resultMap>
   <select id="checkRoleExist" resultType="java.lang.Boolean" parameterType="java.lang.Long">
     SELECT EXISTS (
-    SELECT role_id,priv_id FROM xm_role_priv
+    SELECT role_id,priv_id FROM sys_role_priv
     WHERE role_id=#{roleId}
     )
   </select>
 
   <select id="checkPrivExist" resultType="java.lang.Boolean" parameterType="java.lang.Long">
     SELECT EXISTS (
-    SELECT role_id,priv_id FROM xm_role_priv
+    SELECT role_id,priv_id FROM sys_role_priv
     WHERE priv_id=#{privId}
     )
   </select>
 
   <select id="checkRolePrivExist" resultType="java.lang.Boolean" parameterType="java.util.Map">
     SELECT EXISTS (
-    SELECT role_id,priv_id FROM xm_role_priv
+    SELECT role_id,priv_id FROM sys_role_priv
     WHERE role_id=#{roleId} AND priv_id=#{privId}
     )
   </select>
