@@ -79,7 +79,6 @@ public class RequestUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> getQueryParams(HttpServletRequest request) {
         Map<String, String[]> map;
         if (request.getMethod().equalsIgnoreCase(POST)) {
@@ -172,7 +171,6 @@ public class RequestUtils {
         return getRequestMap(request, prefix, true);
     }
 
-    @SuppressWarnings("unchecked")
     private static Map<String, String> getRequestMap(HttpServletRequest request, String prefix,
                                                      boolean nameWithPrefix) {
         Map<String, String> map = new HashMap<String, String>();
@@ -189,7 +187,6 @@ public class RequestUtils {
         return map;
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, String> getRequestMap(HttpServletRequest request) {
         Map<String, String> map = new HashMap<String, String>();
         Enumeration<String> names = request.getParameterNames();
@@ -322,7 +319,6 @@ public class RequestUtils {
      * @return
      */
     public static String getQueryString(HttpServletRequest request) {
-        @SuppressWarnings("unchecked")
         Map<String, String[]> params = request.getParameterMap();
 
         Map<String, String> map = new HashMap<>();
@@ -371,7 +367,6 @@ public class RequestUtils {
      * @return
      */
     public static String getQueryString(HttpServletRequest request, Map<String, DesensitizeModel> desRules) {
-        @SuppressWarnings("unchecked")
         Map<String, String[]> params = request.getParameterMap();
         String queryString = "";
         for (String key : params.keySet()) {
