@@ -46,7 +46,7 @@ public class I18NUtilTest extends BaseTest {
         try {
             // 测试参数化的Message
             ExceptionHandler.publish(I18N_MESSAGE_TEST_PARAMS,
-                I18NUtil.getMessage(I18N_MESSAGE_TEST_PARAMS.getCodeString(), new Object[]{
+                I18NUtil.getMessage(I18N_MESSAGE_TEST_PARAMS, new Object[]{
                     "deng.qiming",
                     now,
                 }));

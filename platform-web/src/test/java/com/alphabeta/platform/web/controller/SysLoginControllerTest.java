@@ -88,7 +88,7 @@ public class SysLoginControllerTest extends BaseControllerTest {
         try {
             SysUser sysUser = (SysUser) SessionUtil.getSessionUser();
         } catch (BaseAppException be) {
-            assertEquals(USER_SESSION_TIMEOUT.getCodeString(), be.getCode());
+            assertEquals("用户登录过期", be.getDesc());
         }
     }
 }
