@@ -56,7 +56,7 @@ public class SysUserRoleServiceImpl extends BaseService implements SysUserRoleSe
     @Override
     @Transactional(readOnly = false)
     public int addUserRole(Long userId, List<Long> roleIds) throws BaseAppException {
-        //TODO 如果存在则pass；如果不存在则添加
+        // 如果存在则pass；如果不存在则添加
         int count = 0;
         for (Long roleId : roleIds) {
             count += addUserRole(userId, roleId);

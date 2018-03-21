@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * Spring上下文持有类
  */
-@SuppressWarnings("unchecked")
 public class SpringContextHolder implements ApplicationContextAware {
     /**
      * 以静态变量保存Spring ApplicationContext,可在任何代码任何地方任何时候中取出ApplicaitonContext.
