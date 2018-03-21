@@ -1,6 +1,8 @@
 package com.alphabeta.platform.core.exception;
 
 import com.alphabeta.platform.core.common.ErrorCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -10,13 +12,10 @@ import java.lang.reflect.InvocationTargetException;
  * @author deng.qiming
  * @date 2016年10月27日 上午11:14:03
  */
-public final class ExceptionHandler {
+public class ExceptionHandler {
 
-    // private static Logger logger =
-    // LoggerFactory.getLogger(ExceptionHandler.class);
+     private static Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 
-    private ExceptionHandler() {
-    }
 
     /**
      * 抛出异常

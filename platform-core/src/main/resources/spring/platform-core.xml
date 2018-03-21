@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+  <!-- 配置注解扫描路径 -->
+  <context:component-scan base-package="com.alphabeta.platform.*">
+    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+  </context:component-scan>
+
+  <!-- 国际化资源文件 -->
+  <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->
+    <property name="useCodeAsDefaultMessage" value="true"/>
+    <!-- 解决中文乱码 -->
+    <property name="defaultEncoding" value="UTF-8"/>
+    <property name="basenames">
+      <list>
+        <value>classpath:i18n/core_messages</value>
+      </list>
+    </property>
+  </bean>
+
+</beans>

@@ -9,7 +9,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.util.Locale;
 
-import static com.alphabeta.platform.core.common.ErrorCode.PRIV_CODE_HAS_EXIST;
+import static com.alphabeta.platform.core.common.ErrorCode.ERROR_SYS_EXCEPTION;
 
 
 public class I18NMgrTest extends BaseTest {
@@ -17,18 +17,18 @@ public class I18NMgrTest extends BaseTest {
     @Test
     public void testGetMessageEn() {
         try {
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
-            Assert.assertEquals("Priv code has exist", I18NMgr.getMessage(e.getCode()));
+            Assert.assertEquals("System error", I18NMgr.getMessage(e.getCode()));
         }
     }
 
     @Test
     public void testGetMessageZh() {
         try {
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
-            Assert.assertEquals("权限编码已存在", I18NMgr.getMessage(e.getCode(), Locale.CHINESE));
+            Assert.assertEquals("系统异常错误", I18NMgr.getMessage(e.getCode(), Locale.CHINESE));
         }
     }
 
@@ -36,17 +36,16 @@ public class I18NMgrTest extends BaseTest {
     public void testGetMessageChange() {
         try {
             LocaleContextHolder.setLocale(Locale.CHINESE);
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
-            Assert.assertEquals("权限编码已存在", I18NMgr.getMessage(e.getCode()));
+            Assert.assertEquals("系统异常错误", I18NMgr.getMessage(e.getCode()));
         }
         try {
             LocaleContextHolder.setLocale(Locale.ENGLISH);
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
-            Assert.assertEquals("Priv code has exist", I18NMgr.getMessage(e.getCode()));
+            Assert.assertEquals("System error", I18NMgr.getMessage(e.getCode()));
         }
     }
-
 
 }

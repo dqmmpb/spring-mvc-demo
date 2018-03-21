@@ -6,11 +6,7 @@ public enum ErrorCode {
 
     // 系统异常
     ERROR_SYS_EXCEPTION(1001, "系统异常错误"),
-    ERROR_INVALID_REQUEST(1002, "非法请求"),
-
-    PRIV_CODE_HAS_EXIST(4302, "权限编码已存在"),
-    PRIV_HAS_ROLE_PRIV_REF(4303, "存在引用该权限的角色"),
-    NO_PERMISSION(4304, "无权限"),;
+    ERROR_INVALID_REQUEST(1002, "非法请求"),;
 
     private int code;
     private String name;

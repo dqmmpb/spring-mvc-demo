@@ -1,4 +1,4 @@
-package com.alphabeta.platform.core;
+package com.alphabeta.platform.base;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -13,6 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 //@WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:spring/platform-core-test.xml"})
+@ContextConfiguration(locations = {"classpath:spring/platform-base-test.xml"})
 public abstract class BaseTest extends AbstractJUnit4SpringContextTests {
 }
