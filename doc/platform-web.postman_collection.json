@@ -1,0 +1,1481 @@
+{
+	"info": {
+		"name": "platform-web",
+		"_postman_id": "7b685238-4a06-e691-afb1-72d91e09ab4a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "基础接口",
+			"description": "登录\n退出\n个人信息",
+			"item": [
+				{
+					"name": "配置信息",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "60d46b21-fbbb-42d8-86b5-71d399da3790",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"params\": {\n  }\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/config",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"config"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "用户登录",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "4fd397d1-692d-46b5-889d-06d08d49a14d",
+								"type": "text/javascript",
+								"exec": [
+									"var params = JSON.parse(request.data).params;",
+									"var raw_phone = params['raw_phone'];",
+									"var raw_password = params['raw_password'];",
+									"",
+									"console.log(params)",
+									"var username = raw_phone;",
+									"",
+									"pm.sendRequest({",
+									"    url: pm.environment.get('host') + '/' + pm.environment.get('project') + '/v1/sys/tools/encrypt',",
+									"    method: \"POST\",",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"            params: {",
+									"                \"isPub\": true, ",
+									"                \"encryptStr\": raw_password",
+									"            }",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var result = res.json().result;",
+									"    var encryptResult = result.encryptResult;",
+									"    // 加密前消息",
+									"    console.log('加密前：', raw_password);",
+									"    // 加密后消息",
+									"    console.log('密文：', encryptResult);",
+									"    ",
+									"    // 设置变量",
+									"    postman.setEnvironmentVariable('phone', username);",
+									"    postman.setEnvironmentVariable('password', encryptResult);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"raw_phone\": \"13819493700\",\n\t    \"raw_password\": \"493700\",\n\t    \"phone\": \"{{phone}}\",\n\t    \"password\": \"{{password}}\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户是否登录",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/isLogin",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"isLogin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户退出",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户个人信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/profile/view",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"profile",
+								"view"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户修改密码",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0f4cce32-cb57-47c1-8123-2adec92498fa",
+								"type": "text/javascript",
+								"exec": [
+									"var params = JSON.parse(request.data).params;",
+									"var raw_oldPwd = params['raw_oldPwd'];",
+									"var raw_newPwd = params['raw_newPwd'];",
+									"",
+									"console.log(params)",
+									"",
+									"pm.sendRequest({",
+									"    url: pm.environment.get('host') + '/' + pm.environment.get('project') + '/v1/sys/tools/encrypt',",
+									"    method: \"POST\",",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"            params: {",
+									"                \"isPub\": true, ",
+									"                \"encryptStr\": raw_oldPwd",
+									"            }",
+									"        })",
+									"    }",
+									"}, function (err, res) {",
+									"    var result = res.json().result;",
+									"    var encryptResult = result.encryptResult;",
+									"    // 加密前消息",
+									"    console.log('加密前：', raw_oldPwd);",
+									"    // 加密后消息",
+									"    console.log('密文：', encryptResult);",
+									"    ",
+									"    // 设置变量",
+									"    postman.setEnvironmentVariable('oldPwd', encryptResult);",
+									"    ",
+									"    pm.sendRequest({",
+									"        url: pm.environment.get('host') + '/' + pm.environment.get('project') + '/v1/sys/tools/encrypt',",
+									"        method: \"POST\",",
+									"        header: {",
+									"            'Content-Type': 'application/json'",
+									"        },",
+									"        body: {",
+									"            mode: 'raw',",
+									"            raw: JSON.stringify({",
+									"                params: {",
+									"                    \"isPub\": true, ",
+									"                    \"encryptStr\": raw_newPwd",
+									"                }",
+									"            })",
+									"        }",
+									"    }, function (err, res) {",
+									"        var result = res.json().result;",
+									"        var encryptResult = result.encryptResult;",
+									"        // 加密前消息",
+									"        console.log('加密前：', raw_newPwd);",
+									"        // 加密后消息",
+									"        console.log('密文：', encryptResult);",
+									"        ",
+									"        // 设置变量",
+									"        postman.setEnvironmentVariable('newPwd', encryptResult);",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"raw_oldPwd\": \"123456\",\n\t\t\"raw_newPwd\": \"493700\",\n\t    \"oldPwd\": \"{{oldPwd}}\",\n\t    \"newPwd\": \"{{newPwd}}\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/profile/changePwd",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"profile",
+								"changePwd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户个人信息，所有权限",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/profile/privs",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"profile",
+								"privs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "权限管理",
+			"description": "新增权限\n编辑权限\n删除权限",
+			"item": [
+				{
+					"name": "新增权限",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"privName\": \"新增权限-测试\",\n\t\t\"privCode\": \"sys:test:dir:manage\",\n\t\t\"type\": 1,\n\t\t\"description\": \"新增权限-测试\",\n\t\t\"url\": \"/test\",\n\t\t\"path\": \"/test\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "编辑权限",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"privId\": 1,\n\t\t\"privName\": \"编辑权限-测试\",\n\t\t\"privCode\": \"sys:test:dir:manage\",\n\t\t\"type\": 1,\n\t\t\"description\": \"编辑权限-测试\",\n\t\t\"url\": \"/test\",\n\t\t\"path\": \"/test\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "权限详情",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"privId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/get",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除权限",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"privId\": 45\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "权限（分页）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 2\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/privs",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"privs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "权限（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"type\": 0\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/privsAll",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"privsAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色所属的权限（分页）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 1,\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 2\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/rolepriv",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"rolepriv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色所属的权限（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/roleprivAll",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"roleprivAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户所属的权限（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/priv/managerpriv",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"priv",
+								"managerpriv"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色管理",
+			"item": [
+				{
+					"name": "新增角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleCode\": \"AddRoleTest\",\n\t\t\"roleName\": \"新增角色-测试\",\n\t\t\"description\": \"新增角色-测试\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "编辑角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 4,\n\t\t\"roleCode\": \"AddRoleTest\",\n\t\t\"roleName\": \"编辑角色-测试\",\n\t\t\"description\": \"编辑角色-测试\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色详情",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/get",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色（分页）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 2\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/rolesAll",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"rolesAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户所属的角色（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/role/managerrole",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"role",
+								"managerrole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色分配权限",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 4,\n\t\t\"privIds\":[10, 12, 20, 21]\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/rolepriv/allocate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"rolepriv",
+								"allocate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "管理员管理",
+			"item": [
+				{
+					"name": "新建管理员",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"phone\": \"13819493704\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "编辑管理员",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n        \"name\": \"邓启明\",\n\t\t\"department\": \"编辑管理员-测试\",\n        \"email\": \"dengqiming@izaiqi.com\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除管理员",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "管理员详情",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/get",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启用管理员",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/lock",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"lock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "禁用管理员",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/unlock",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"unlock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重置其他管理员密码",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/resetPwd",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"resetPwd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "管理员（分页）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 20\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/managers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"managers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "角色所属的管理员（扁平）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"roleId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/manager/managerrole",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"manager",
+								"managerrole"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户分配角色",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"managerId\": 4,\n\t\t\"roleIds\":[3]\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/managerrole/allocate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"managerrole",
+								"allocate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "用户管理",
+			"item": [
+				{
+					"name": "新建用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"phone\": \"13819493704\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "编辑用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n        \"name\": \"邓启明\",\n\t\t\"department\": \"编辑管理员-测试\",\n        \"email\": \"dengqiming@izaiqi.com\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户详情",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/get",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "启用用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/lock",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"lock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "禁用用户",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/unlock",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"unlock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户审核通过",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t\t\"teamLeaderId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/auditPass",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"auditPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户审核不通过",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t\t\"teamLeaderId\": 1\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/auditPass",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"auditPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重置其他用户密码",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"id\": 4,\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/resetPwd",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"resetPwd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "用户（分页）",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"params\": {\n\t\t\"auditStatus\": 1,\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 20\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/{{project}}/v1/sys/user/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"{{project}}",
+								"v1",
+								"sys",
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

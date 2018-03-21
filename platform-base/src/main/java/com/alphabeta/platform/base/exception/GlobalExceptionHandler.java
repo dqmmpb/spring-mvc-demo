@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = BaseAppException.class)
     public ResponseEntity<BaseResult> handleBaseAppException(HttpServletRequest request, HttpServletResponse response, BaseAppException e) {
-        return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, e.getMessage()),
+        return new ResponseEntity<BaseResult>(buildBaseResult(e.getCode(), e.getDesc()),
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
