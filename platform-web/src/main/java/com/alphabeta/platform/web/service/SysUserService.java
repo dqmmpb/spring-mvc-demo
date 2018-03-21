@@ -88,7 +88,6 @@ public interface SysUserService {
     /**
      * 分页获取用户列表
      *
-     *
      * @param filter
      * @param pageNum
      * @param pageSize

@@ -1,10 +1,12 @@
 package com.alphabeta.platform.core.exception;
 
-import com.alphabeta.platform.core.common.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import static com.alphabeta.platform.core.common.ErrorCode.ERROR_SYS_EXCEPTION;
 
 /**
  * 抛出异常处理类
@@ -14,8 +16,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class ExceptionHandler {
 
-     private static Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
-
+    private static Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 
     /**
      * 抛出异常
@@ -24,12 +25,33 @@ public class ExceptionHandler {
      * @return
      * @throws BaseAppException
      */
-    public static BaseAppException publish(ErrorCode errorCode) throws BaseAppException {
+    public static BaseAppException publish(Enum<?> errorCode) throws BaseAppException {
         return publish(errorCode, null);
     }
 
-    public static BaseAppException publish(ErrorCode errorCode, String msg) throws BaseAppException {
-        return publish(errorCode.getCodeString(), msg, null);
+
+    /**
+     * 抛出异常
+     *
+     * @param errorCode
+     * @param msg
+     * @return
+     * @throws BaseAppException
+     */
+    public static BaseAppException publish(Enum<?> errorCode, String msg) throws BaseAppException {
+        try {
+            Method method = errorCode.getClass().getMethod("getCodeString");
+            Object errorCodeString = method.invoke(errorCode);
+            return publish((String) errorCodeString, msg);
+        } catch (Exception e) {
+            try {
+                Method method = errorCode.getClass().getMethod("getCode");
+                Object errorCodeInteger = method.invoke(errorCode);
+                return publish("" + errorCodeInteger, msg);
+            } catch (Exception ie) {
+                return publish(ERROR_SYS_EXCEPTION);
+            }
+        }
     }
 
     /**

@@ -3,15 +3,15 @@ package com.alphabeta.platform.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
-import com.github.pagehelper.PageInfo;
+import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.base.util.SessionUtil;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.domain.PageParam;
-import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.util.SessionUtil;
 import com.alphabeta.platform.web.service.SysUserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -169,7 +169,7 @@ public class SysUserController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
+        exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
     @RequestMapping(value = "get", method = RequestMethod.POST)
     public BaseResult getUser(@RequestBody BaseParam param) throws BaseAppException {
 
@@ -192,7 +192,7 @@ public class SysUserController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
+        exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
     @RequestMapping(value = "userrole", method = RequestMethod.POST)
     public BaseResult getUsersByRoleId(@RequestBody BaseParam param) throws BaseAppException {
 
@@ -213,10 +213,10 @@ public class SysUserController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            include = {
-                    @FastJsonFilter(clazz = PageInfo.class, props = {"pageNum", "total", "pageSize", "pages", "list"}),
-            },
-            exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
+        include = {
+            @FastJsonFilter(clazz = PageInfo.class, props = {"pageNum", "total", "pageSize", "pages", "list"}),
+        },
+        exclude = {@FastJsonFilter(clazz = SysUser.class, props = {"password", "salt"})})
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     @RequiresPermissions("sys:user:view")
     public BaseResult getUsers(@RequestBody BaseParam param) throws BaseAppException {

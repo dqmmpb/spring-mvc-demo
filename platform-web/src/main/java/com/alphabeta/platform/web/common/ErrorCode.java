@@ -7,9 +7,10 @@ public enum ErrorCode {
 
     // 业务异常（5位异常代码，前3位为模块代码，后2位为模块内部代码）
     // 基本业务异常(100)
-    ERROR_PARAMS_SIGN_FAILED(10001, "参数签名错误"),
-    ERROR_INVALID_PARAMS(10002, "输入参数错误"),
-    PARAMS_FORMAT_ERROR(10003,"输入参数格式错误"),;
+    PARAMS_SIGN_FAILED_ERROR(10001, "参数签名错误"),
+    INVALID_PARAMS_ERROR(10002, "参数错误"),
+    INVALID_PARAMS_FORMAT_ERROR(10003, "参数格式错误"),
+    ENCRYPT_ERROR(10004, "参数加密失败"),;
 
     private int code;
     private String name;

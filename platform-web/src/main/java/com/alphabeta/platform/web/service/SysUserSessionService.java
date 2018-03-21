@@ -15,9 +15,9 @@ public interface SysUserSessionService {
      * 添加token
      *
      * @param userId 用户ID
-     * @param phone     用户名
-     * @param ua        UA
-     * @param token     TOKEN
+     * @param phone  用户名
+     * @param ua     UA
+     * @param token  TOKEN
      * @return
      * @throws BaseAppException
      */
@@ -27,7 +27,7 @@ public interface SysUserSessionService {
      * 查询当前会话
      *
      * @param userId 用户ID
-     * @param token     token
+     * @param token  token
      * @return
      * @throws BaseAppException
      */

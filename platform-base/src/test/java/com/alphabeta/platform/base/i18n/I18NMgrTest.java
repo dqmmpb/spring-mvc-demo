@@ -19,13 +19,13 @@ public class I18NMgrTest extends BaseTest {
     @Test
     public void testGetMessageEn() {
         try {
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST.getCodeString());
+            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
         } catch (BaseAppException e) {
             Assert.assertEquals("Priv code has exist", I18NMgr.getMessage(e.getCode()));
         }
 
         try {
-            ExceptionHandler.publish(ERROR_SYS_EXCEPTION.getCodeString());
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
             Assert.assertEquals("System error", I18NMgr.getMessage(e.getCode()));
         }
@@ -34,13 +34,13 @@ public class I18NMgrTest extends BaseTest {
     @Test
     public void testGetMessageZh() {
         try {
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST.getCodeString());
+            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
         } catch (BaseAppException e) {
             Assert.assertEquals("权限编码已存在", I18NMgr.getMessage(e.getCode(), Locale.CHINESE));
         }
 
         try {
-            ExceptionHandler.publish(ERROR_SYS_EXCEPTION.getCodeString());
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
             Assert.assertEquals("系统异常错误", I18NMgr.getMessage(e.getCode(), Locale.CHINESE));
         }
@@ -50,26 +50,26 @@ public class I18NMgrTest extends BaseTest {
     public void testGetMessageChange() {
         try {
             LocaleContextHolder.setLocale(Locale.CHINESE);
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST.getCodeString());
+            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
         } catch (BaseAppException e) {
             Assert.assertEquals("权限编码已存在", I18NMgr.getMessage(e.getCode()));
         }
         try {
             LocaleContextHolder.setLocale(Locale.ENGLISH);
-            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST.getCodeString());
+            ExceptionHandler.publish(PRIV_CODE_HAS_EXIST);
         } catch (BaseAppException e) {
             Assert.assertEquals("Priv code has exist", I18NMgr.getMessage(e.getCode()));
         }
 
         try {
             LocaleContextHolder.setLocale(Locale.CHINESE);
-            ExceptionHandler.publish(ERROR_SYS_EXCEPTION.getCodeString());
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
             Assert.assertEquals("系统异常错误", I18NMgr.getMessage(e.getCode()));
         }
         try {
             LocaleContextHolder.setLocale(Locale.ENGLISH);
-            ExceptionHandler.publish(ERROR_SYS_EXCEPTION.getCodeString());
+            ExceptionHandler.publish(ERROR_SYS_EXCEPTION);
         } catch (BaseAppException e) {
             Assert.assertEquals("System error", I18NMgr.getMessage(e.getCode()));
         }

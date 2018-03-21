@@ -6,12 +6,12 @@ import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
-import com.alphabeta.platform.base.exception.ExceptionHandler;
+import com.alphabeta.platform.core.exception.ExceptionHandler;
 import com.alphabeta.platform.core.util.EqualsUtil;
 import com.alphabeta.platform.core.util.ListUtil;
 import com.alphabeta.platform.core.util.StringUtil;
-import com.alphabeta.platform.web.service.SysUserService;
 import com.alphabeta.platform.web.service.SysPrivService;
+import com.alphabeta.platform.web.service.SysUserService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
@@ -60,7 +60,7 @@ public class UserPrivAspect {
             Object userObj = session.getAttribute(Const.SESSION_LOGIN_USER);
             if (userObj == null) {
                 logger.error("session user is null, plz check!");
-                ExceptionHandler.publish(USER_SESSION_TIMEOUT.getCodeString());
+                ExceptionHandler.publish(USER_SESSION_TIMEOUT);
             }
 
             SysUser sysUser = (SysUser) userObj;

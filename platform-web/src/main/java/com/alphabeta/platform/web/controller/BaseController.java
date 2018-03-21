@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.alphabeta.platform.web.common.ErrorCode.ERROR_PARAMS_SIGN_FAILED;
+import static com.alphabeta.platform.web.common.ErrorCode.PARAMS_SIGN_FAILED_ERROR;
 
 /**
  * 项目基类
@@ -32,7 +32,7 @@ public abstract class BaseController extends com.alphabeta.platform.base.domain.
         if (ObjectUtil.isNotNull(param)) {
             Map params = param.getParams();
             if (validSign && !this.validSign(param)) {
-                ExceptionHandler.publish(ERROR_PARAMS_SIGN_FAILED.getCodeString());
+                ExceptionHandler.publish(PARAMS_SIGN_FAILED_ERROR);
             }
             if (ObjectUtil.isNotNull(params)) {
                 return params;

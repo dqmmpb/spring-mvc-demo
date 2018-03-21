@@ -2,21 +2,24 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
+import com.alphabeta.platform.base.common.Const;
+import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.common.StatusType;
+import com.alphabeta.platform.base.domain.model.SysPriv;
+import com.alphabeta.platform.base.domain.model.SysRole;
+import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.base.domain.model.SysUserSession;
 import com.alphabeta.platform.base.util.RequestUtils;
 import com.alphabeta.platform.base.util.SessionUtil;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
-import com.alphabeta.platform.base.common.Const;
-import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
-import com.alphabeta.platform.base.domain.model.SysUser;
-import com.alphabeta.platform.base.domain.model.SysUserSession;
-import com.alphabeta.platform.base.domain.model.SysPriv;
-import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.core.exception.ExceptionHandler;
-import com.alphabeta.platform.core.util.*;
+import com.alphabeta.platform.core.util.EqualsUtil;
+import com.alphabeta.platform.core.util.ListUtil;
+import com.alphabeta.platform.core.util.ObjectUtil;
+import com.alphabeta.platform.core.util.RSAUtil;
 import com.alphabeta.platform.web.result.model.LoginModel;
 import com.alphabeta.platform.web.result.model.MenuModel;
 import com.alphabeta.platform.web.service.*;
@@ -36,9 +39,8 @@ import java.util.List;
 import java.util.Map;
 
 import static com.alphabeta.platform.base.common.ErrorCode.USER_NOT_LOGIN;
-import static com.alphabeta.platform.base.common.ErrorCode.USER_PWD_ERROR;
-import static com.alphabeta.platform.web.common.ErrorCode.ERROR_INVALID_PARAMS;
-import static com.alphabeta.platform.web.common.ErrorCode.PARAMS_FORMAT_ERROR;
+import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_ERROR;
+import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_FORMAT_ERROR;
 
 /**
  * 登录相关
@@ -83,11 +85,11 @@ public class SysLoginController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {
-                    @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
-                    @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
-                    @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
-            })
+        exclude = {
+            @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
+            @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
+            @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
+        })
     @RequestMapping(value = "/isLogin", method = RequestMethod.POST)
     public BaseResult isLogin(HttpServletRequest request, HttpServletResponse response, @RequestBody BaseParam param) throws BaseAppException {
 
@@ -104,7 +106,7 @@ public class SysLoginController extends BaseController {
             SysUser sysUser = (SysUser) obj;
             SysUser realUser = sysUserService.getUser(sysUser.getUserId());
             if (realUser.getStatus().intValue() == StatusType.LOCK.getValue()
-                    || !sysUser.getPassword().equals(realUser.getPassword())) {
+                || !sysUser.getPassword().equals(realUser.getPassword())) {
                 loginModel.setLogin(false);
             } else {
                 loginModel.setLogin(true);
@@ -129,11 +131,11 @@ public class SysLoginController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {
-                    @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
-                    @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
-                    @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
-            })
+        exclude = {
+            @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
+            @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
+            @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
+        })
     @RequestMapping(value = "/profile/view", method = RequestMethod.POST)
     @RequiresPermissions
     public BaseResult profileView(HttpServletRequest request, HttpServletResponse response, @RequestBody BaseParam param) throws BaseAppException {
@@ -164,12 +166,12 @@ public class SysLoginController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {@FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"})})
+        exclude = {@FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"})})
     @RequestMapping(value = "/profile/privs", method = RequestMethod.POST)
     @RequiresPermissions
     public BaseResult getUserPrivs(@RequestBody BaseParam param) throws BaseAppException {
         Map params = parseParams(param);
-        SysUser sysUser = (SysUser)SessionUtil.getSessionUser();
+        SysUser sysUser = (SysUser) SessionUtil.getSessionUser();
 
         BaseResult result = new BaseResult();
         List<SysPriv> sysPrivList = sysPrivService.queryPrivsByUserId(sysUser.getUserId());
@@ -192,7 +194,7 @@ public class SysLoginController extends BaseController {
         Map params = parseParams(param);
 
         if (ObjectUtil.isNull(params.get("oldPwd")) || ObjectUtil.isNull(params.get("newPwd"))) {
-            ExceptionHandler.publish(ERROR_INVALID_PARAMS.getCodeString());
+            ExceptionHandler.publish(INVALID_PARAMS_ERROR);
         }
 
         String oldPwd = null;
@@ -202,7 +204,7 @@ public class SysLoginController extends BaseController {
             oldPwd = (String) params.get("oldPwd");
             newPwd = (String) params.get("newPwd");
         } catch (Exception e) {
-            ExceptionHandler.publish(PARAMS_FORMAT_ERROR.getCodeString());
+            ExceptionHandler.publish(INVALID_PARAMS_FORMAT_ERROR);
         }
 
         //判断是否需要解密密码
@@ -212,7 +214,7 @@ public class SysLoginController extends BaseController {
                 oldPwd = RSAUtil.decryptToString(oldPwd, privateRSAKey);
                 newPwd = RSAUtil.decryptToString(newPwd, privateRSAKey);
             } catch (Exception e) {
-                ExceptionHandler.publish(ERROR_INVALID_PARAMS.getCodeString());
+                ExceptionHandler.publish(INVALID_PARAMS_ERROR);
             }
         }
 
@@ -234,18 +236,18 @@ public class SysLoginController extends BaseController {
      * @throws BaseAppException
      */
     @FastJsonView(
-            exclude = {
-                    @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
-                    @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
-                    @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
-            })
+        exclude = {
+            @FastJsonFilter(clazz = SysUser.class, props = {"createTime", "updateTime", "password", "salt"}),
+            @FastJsonFilter(clazz = SysPriv.class, props = {"createTime", "updateTime", "description"}),
+            @FastJsonFilter(clazz = MenuModel.class, props = {"description"}),
+        })
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public BaseResult login(HttpServletRequest request, HttpServletResponse response, @RequestBody BaseParam param) throws BaseAppException {
 
         Map params = parseParams(param);
 
         if (ObjectUtil.isNull(params.get("phone")) || ObjectUtil.isNull(params.get("password"))) {
-            ExceptionHandler.publish(ERROR_INVALID_PARAMS.getCodeString());
+            ExceptionHandler.publish(INVALID_PARAMS_ERROR);
         }
 
         String phone = null;
@@ -255,7 +257,7 @@ public class SysLoginController extends BaseController {
             phone = (String) params.get("phone");
             password = (String) params.get("password");
         } catch (Exception e) {
-            ExceptionHandler.publish(PARAMS_FORMAT_ERROR.getCodeString());
+            ExceptionHandler.publish(INVALID_PARAMS_FORMAT_ERROR);
         }
 
         //判断是否需要解密密码
@@ -264,7 +266,7 @@ public class SysLoginController extends BaseController {
                 PrivateKey privateRSAKey = RSAUtil.getPrivateRSAKey(privateKeyStr);
                 password = RSAUtil.decryptToString(password, privateRSAKey);
             } catch (Exception e) {
-                ExceptionHandler.publish(ERROR_INVALID_PARAMS.getCodeString());
+                ExceptionHandler.publish(INVALID_PARAMS_ERROR);
             }
         }
 
@@ -282,8 +284,7 @@ public class SysLoginController extends BaseController {
         if (sysUser == null) {
             logger.debug("sysUser is invalid, please check!");
             loginModel.setLogin(false);
-            result.setErrorCode(USER_NOT_LOGIN.getCodeString());
-            result.setErrorMessage(I18NUtil.getMessage(USER_NOT_LOGIN.getCodeString()));
+            ExceptionHandler.publish(USER_NOT_LOGIN);
         } else {
             logger.debug("sysUser is valid, then will generator token");
 

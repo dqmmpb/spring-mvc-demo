@@ -1,14 +1,14 @@
 package com.alphabeta.platform.web.service.impl;
 
 import com.alphabeta.platform.base.common.Const;
-import com.alphabeta.platform.base.dao.mapper.ext.SysUserRoleExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysPrivExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysRolePrivExtMapper;
-import com.alphabeta.platform.core.domain.BaseService;
-import com.alphabeta.platform.base.domain.model.SysUserRole;
+import com.alphabeta.platform.base.dao.mapper.ext.SysUserRoleExtMapper;
 import com.alphabeta.platform.base.domain.model.SysPriv;
+import com.alphabeta.platform.base.domain.model.SysUserRole;
+import com.alphabeta.platform.core.domain.BaseService;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.exception.ExceptionHandler;
+import com.alphabeta.platform.core.exception.ExceptionHandler;
 import com.alphabeta.platform.core.util.ListUtil;
 import com.alphabeta.platform.web.service.SysPrivService;
 import org.apache.ibatis.session.RowBounds;
@@ -22,9 +22,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.alphabeta.platform.base.common.ErrorCode.PRIV_CODE_HAS_EXIST;
-import static com.alphabeta.platform.base.common.ErrorCode.PRIV_HAS_ROLE_PRIV_REF;
-import static com.alphabeta.platform.base.common.ErrorCode.PRIV_IS_NULL;
+import static com.alphabeta.platform.base.common.ErrorCode.*;
 
 /**
  * 系统权限

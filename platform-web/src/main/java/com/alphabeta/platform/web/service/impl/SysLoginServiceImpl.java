@@ -1,11 +1,11 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.common.Const;
-import com.alphabeta.platform.core.domain.BaseService;
+import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.core.domain.BaseService;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.exception.ExceptionHandler;
+import com.alphabeta.platform.core.exception.ExceptionHandler;
 import com.alphabeta.platform.core.util.EqualsUtil;
 import com.alphabeta.platform.web.service.SysLoginService;
 import com.alphabeta.platform.web.service.SysUserService;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
 import java.util.Date;
 
 import static com.alphabeta.platform.base.common.ErrorCode.USER_HAS_LOCKED;

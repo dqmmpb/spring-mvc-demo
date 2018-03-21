@@ -2,6 +2,8 @@ package com.alphabeta.platform.base.util;
 
 import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.core.exception.BaseAppException;
+import com.alphabeta.platform.core.exception.ExceptionHandler;
+import com.alphabeta.platform.core.util.ObjectUtil;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -27,10 +29,9 @@ public class SessionUtil {
         HttpSession session = attr.getRequest().getSession();
         Object sessionUserObj = session.getAttribute(Const.SESSION_LOGIN_USER);
 
-        if (sessionUserObj != null) {
-            return sessionUserObj;
-        } else {
-            throw new BaseAppException(USER_SESSION_TIMEOUT.getCodeString());
+        if (ObjectUtil.isNull(sessionUserObj)) {
+            ExceptionHandler.publish(USER_SESSION_TIMEOUT);
         }
+        return sessionUserObj;
     }
 }

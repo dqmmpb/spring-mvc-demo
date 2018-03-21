@@ -1,6 +1,5 @@
 package com.alphabeta.platform.base.exception;
 
-import com.alphabeta.platform.core.common.ErrorCode;
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.core.util.ExceptionUtil;
@@ -29,6 +28,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import static com.alphabeta.platform.core.common.ErrorCode.ERROR_INVALID_REQUEST;
@@ -95,8 +95,20 @@ public class GlobalExceptionHandler {
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private BaseResult buildBaseResult(ErrorCode error, String errorMsg) {
-        return this.buildBaseResult(error.getCodeString(), errorMsg);
+    private BaseResult buildBaseResult(Enum<?> errorCode, String errorMsg) {
+        try {
+            Method method = errorCode.getClass().getMethod("getCodeString");
+            Object errorCodeString = method.invoke(errorCode);
+            return this.buildBaseResult((String) errorCodeString, errorMsg);
+        } catch (Exception e) {
+            try {
+                Method method = errorCode.getClass().getMethod("getCode");
+                Object errorCodeInteger = method.invoke(errorCode);
+                return this.buildBaseResult("" + errorCodeInteger, errorMsg);
+            } catch (Exception ie) {
+                return this.buildBaseResult(ERROR_SYS_EXCEPTION, errorMsg);
+            }
+        }
     }
 
     private BaseResult buildBaseResult(String errorCode, String errorMsg) {

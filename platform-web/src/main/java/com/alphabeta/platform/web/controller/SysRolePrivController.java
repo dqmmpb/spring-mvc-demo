@@ -1,10 +1,10 @@
 package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alphabeta.platform.base.domain.model.SysRolePriv;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
-import com.alphabeta.platform.base.domain.model.SysRolePriv;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.web.service.SysRolePrivService;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -2,18 +2,18 @@ package com.alphabeta.platform.web.service.impl;
 
 import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.StatusType;
-import com.alphabeta.platform.base.dao.mapper.ext.SysUserExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysPrivExtMapper;
-import com.alphabeta.platform.core.domain.BaseService;
+import com.alphabeta.platform.base.dao.mapper.ext.SysUserExtMapper;
 import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.base.util.RegExpUtil;
+import com.alphabeta.platform.core.domain.BaseService;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.exception.ExceptionHandler;
+import com.alphabeta.platform.core.exception.ExceptionHandler;
 import com.alphabeta.platform.core.util.EncryptUtil;
 import com.alphabeta.platform.core.util.EqualsUtil;
-import com.alphabeta.platform.base.util.RegExpUtil;
 import com.alphabeta.platform.core.util.StringUtil;
-import com.alphabeta.platform.web.service.SysUserService;
 import com.alphabeta.platform.web.service.SysPrivService;
+import com.alphabeta.platform.web.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.alphabeta.platform.base.common.ErrorCode.*;
-import static com.alphabeta.platform.web.common.ErrorCode.ERROR_INVALID_PARAMS;
+import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_ERROR;
 
 /**
  * 系统用户
@@ -54,7 +54,7 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
         Assert.notNull(sysUser.getPhone(), "sysUser phone is null, please check!");
 
         if (StringUtils.isBlank(sysUser.getName())) {
-            ExceptionHandler.publish(ERROR_INVALID_PARAMS.getCodeString());
+            ExceptionHandler.publish(INVALID_PARAMS_ERROR);
         }
 
         String phone = sysUser.getPhone();

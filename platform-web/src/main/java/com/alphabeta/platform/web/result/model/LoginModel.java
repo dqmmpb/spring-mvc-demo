@@ -1,8 +1,8 @@
 package com.alphabeta.platform.web.result.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.base.domain.model.SysPriv;
+import com.alphabeta.platform.base.domain.model.SysUser;
 
 import java.util.List;
 
