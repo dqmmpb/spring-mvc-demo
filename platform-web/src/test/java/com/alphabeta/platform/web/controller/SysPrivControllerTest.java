@@ -2,9 +2,9 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.core.common.PrivType;
+import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.core.domain.BaseParam;
-import com.alphabeta.platform.core.domain.model.XmPriv;
+import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.web.result.model.MenuModel;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class XmPrivControllerTest extends BaseControllerTest {
+public class SysPrivControllerTest extends BaseControllerTest {
 
     @Test
     public void addPriv() throws Exception {
@@ -120,11 +120,11 @@ public class XmPrivControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmPrivJsonObj = jsonResult.getJSONObject("result");
-        assertNotNull(xmPrivJsonObj);
-        XmPriv xmPriv = xmPrivJsonObj.toJavaObject(XmPriv.class);
-        assertEquals("重置密码", xmPriv.getPrivName());
-        assertEquals("sys:manager:resetPwd", xmPriv.getPrivCode());
+        JSONObject sysPrivJsonObj = jsonResult.getJSONObject("result");
+        assertNotNull(sysPrivJsonObj);
+        SysPriv sysPriv = sysPrivJsonObj.toJavaObject(SysPriv.class);
+        assertEquals("重置密码", sysPriv.getPrivName());
+        assertEquals("sys:user:resetPwd", sysPriv.getPrivCode());
     }
 
     @Test
@@ -217,10 +217,10 @@ public class XmPrivControllerTest extends BaseControllerTest {
 
     @Test
     public void getUserPrivsByManagerId() throws Exception {
-        String url = "/v1/sys/priv/managerpriv";
+        String url = "/v1/sys/priv/userpriv";
 
         Map params = new HashMap();
-        params.put("managerId", 2);
+        params.put("userId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -235,10 +235,10 @@ public class XmPrivControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONArray xmPrivJsonArray = jsonResult.getJSONArray("result");
-        assertNotNull(xmPrivJsonArray);
-        List<XmPriv> xmPrivList = xmPrivJsonArray.toJavaList(XmPriv.class);
-        assertEquals(2, xmPrivList.size());
+        JSONArray sysPrivJsonArray = jsonResult.getJSONArray("result");
+        assertNotNull(sysPrivJsonArray);
+        List<SysPriv> sysPrivList = sysPrivJsonArray.toJavaList(SysPriv.class);
+        assertEquals(2, sysPrivList.size());
     }
 
     @Test

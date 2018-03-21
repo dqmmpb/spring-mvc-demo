@@ -3,7 +3,7 @@ package com.alphabeta.platform.web.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alphabeta.platform.core.domain.BaseParam;
-import com.alphabeta.platform.core.domain.model.XmRole;
+import com.alphabeta.platform.base.domain.model.SysRole;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -19,7 +19,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class XmRoleControllerTest extends BaseControllerTest {
+public class SysRoleControllerTest extends BaseControllerTest {
 
     @Test
     public void addRole() throws Exception {
@@ -114,19 +114,19 @@ public class XmRoleControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmRoleJsonObj = jsonResult.getJSONObject("result");
-        assertNotNull(xmRoleJsonObj);
-        XmRole xmRole = xmRoleJsonObj.toJavaObject(XmRole.class);
-        assertEquals("超级管理员", xmRole.getRoleName());
-        assertEquals("SuperAdmin", xmRole.getRoleCode());
+        JSONObject sysRoleJsonObj = jsonResult.getJSONObject("result");
+        assertNotNull(sysRoleJsonObj);
+        SysRole sysRole = sysRoleJsonObj.toJavaObject(SysRole.class);
+        assertEquals("超级管理员", sysRole.getRoleName());
+        assertEquals("SuperAdmin", sysRole.getRoleCode());
     }
 
     @Test
     public void getRolesByManagerId() throws Exception {
-        String url = "/v1/sys/role/managerrole";
+        String url = "/v1/sys/role/userrole";
 
         Map params = new HashMap();
-        params.put("managerId", 2);
+        params.put("userId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -141,10 +141,10 @@ public class XmRoleControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONArray xmRoleJsonArray = jsonResult.getJSONArray("result");
-        assertNotNull(xmRoleJsonArray);
-        List<XmRole> xmRoleList = xmRoleJsonArray.toJavaList(XmRole.class);
-        assertEquals(1, xmRoleList.size());
+        JSONArray sysRoleJsonArray = jsonResult.getJSONArray("result");
+        assertNotNull(sysRoleJsonArray);
+        List<SysRole> sysRoleList = sysRoleJsonArray.toJavaList(SysRole.class);
+        assertEquals(1, sysRoleList.size());
     }
 
     @Test

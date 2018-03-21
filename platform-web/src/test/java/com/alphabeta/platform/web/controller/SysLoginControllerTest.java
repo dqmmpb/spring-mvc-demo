@@ -1,11 +1,11 @@
 package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.core.common.Const;
+import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.core.domain.BaseParam;
-import com.alphabeta.platform.core.domain.model.XmManager;
+import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.core.util.SessionUtil;
+import com.alphabeta.platform.base.util.SessionUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -17,11 +17,11 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.alphabeta.platform.core.common.ErrorCode.USER_SESSION_TIMEOUT;
+import static com.alphabeta.platform.base.common.ErrorCode.USER_SESSION_TIMEOUT;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-public class XmLoginControllerTest extends BaseControllerTest {
+public class SysLoginControllerTest extends BaseControllerTest {
 
     @Test
     public void isLogin() throws Exception {
@@ -35,10 +35,10 @@ public class XmLoginControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmManagerLogin = jsonResult.getJSONObject("result");
-        assertThat(xmManagerLogin.getBoolean("login"), instanceOf(Boolean.class));
-        assertThat(xmManagerLogin.getBooleanValue("login"), anyOf(equalTo(true), equalTo(false)));
-        assertThat(xmManagerLogin.getBooleanValue("login"), equalTo(true));
+        JSONObject sysUserLogin = jsonResult.getJSONObject("result");
+        assertThat(sysUserLogin.getBoolean("login"), instanceOf(Boolean.class));
+        assertThat(sysUserLogin.getBooleanValue("login"), anyOf(equalTo(true), equalTo(false)));
+        assertThat(sysUserLogin.getBooleanValue("login"), equalTo(true));
     }
 
     @Test
@@ -61,12 +61,12 @@ public class XmLoginControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmManagerLogin = jsonResult.getJSONObject("result");
-        assertNotNull(xmManagerLogin);
-        assertEquals("13819493701", xmManagerLogin.getString("phone"));
-//        XmManager xmManager = SessionUtil.getSessionUser();
-//        assertNotNull(xmManager);
-//        assertEquals("13819493701", xmManager.getPhone());
+        JSONObject sysUserLogin = jsonResult.getJSONObject("result");
+        assertNotNull(sysUserLogin);
+        assertEquals("13819493701", sysUserLogin.getString("phone"));
+//        SysUser sysUser = SessionUtil.getSessionUser();
+//        assertNotNull(sysUser);
+//        assertEquals("13819493701", sysUser.getPhone());
     }
 
     @Test
@@ -81,12 +81,12 @@ public class XmLoginControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmManagerLogin = jsonResult.getJSONObject("result");
-        assertNull(xmManagerLogin);
-        Object managerObj = httpSession.getAttribute(Const.SESSION_LOGIN_USER);
-        assertNull(managerObj);
+        JSONObject sysUserLogin = jsonResult.getJSONObject("result");
+        assertNull(sysUserLogin);
+        Object userObj = httpSession.getAttribute(Const.SESSION_LOGIN_USER);
+        assertNull(userObj);
         try {
-            XmManager xmManager = SessionUtil.getSessionUser();
+            SysUser sysUser = (SysUser) SessionUtil.getSessionUser();
         } catch (BaseAppException be) {
             assertEquals(USER_SESSION_TIMEOUT.getCodeString(), be.getCode());
         }

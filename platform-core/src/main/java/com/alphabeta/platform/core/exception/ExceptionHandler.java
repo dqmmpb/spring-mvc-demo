@@ -29,7 +29,6 @@ public class ExceptionHandler {
         return publish(errorCode, null);
     }
 
-
     /**
      * 抛出异常
      *
@@ -43,14 +42,34 @@ public class ExceptionHandler {
             Method method = errorCode.getClass().getMethod("getCodeString");
             Object errorCodeString = method.invoke(errorCode);
             return publish((String) errorCodeString, msg);
-        } catch (Exception e) {
-            try {
-                Method method = errorCode.getClass().getMethod("getCode");
-                Object errorCodeInteger = method.invoke(errorCode);
-                return publish("" + errorCodeInteger, msg);
-            } catch (Exception ie) {
-                return publish(ERROR_SYS_EXCEPTION);
-            }
+        } catch (NoSuchMethodException e) {
+            return publishCode(errorCode, msg);
+        } catch (IllegalAccessException e) {
+            return publishCode(errorCode, msg);
+        } catch (InvocationTargetException e) {
+            return publishCode(errorCode, msg);
+        }
+    }
+
+    /**
+     * 抛出异常
+     *
+     * @param errorCode
+     * @param msg
+     * @return
+     * @throws BaseAppException
+     */
+    private static BaseAppException publishCode(Enum<?> errorCode, String msg) throws BaseAppException {
+        try {
+            Method method = errorCode.getClass().getMethod("getCode");
+            Object errorCodeInteger = method.invoke(errorCode);
+            return publish("" + errorCodeInteger, msg);
+        } catch (NoSuchMethodException e) {
+            return publish(ERROR_SYS_EXCEPTION);
+        } catch (IllegalAccessException e) {
+            return publish(ERROR_SYS_EXCEPTION);
+        } catch (InvocationTargetException e) {
+            return publish(ERROR_SYS_EXCEPTION);
         }
     }
 
@@ -65,6 +84,14 @@ public class ExceptionHandler {
         return publish(errorCode, null);
     }
 
+    /**
+     * 抛出异常
+     *
+     * @param errorCode
+     * @param msg
+     * @return
+     * @throws BaseAppException
+     */
     public static BaseAppException publish(String errorCode, String msg) throws BaseAppException {
         return publish(errorCode, msg, null);
     }

@@ -1,10 +1,10 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.core.domain.model.XmRole;
+import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.web.common.ConstTest;
 import com.alphabeta.platform.web.service.BaseServiceTest;
-import com.alphabeta.platform.web.service.XmRoleService;
+import com.alphabeta.platform.web.service.SysRoleService;
 import com.github.pagehelper.Page;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,17 +15,17 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class XmRoleServiceImplTest extends BaseServiceTest {
+public class SysRoleServiceImplTest extends BaseServiceTest {
 
     @Resource
-    XmRoleService xmRoleService;
+    SysRoleService sysRoleService;
 
     @Test
     public void addRole() {
         try {
 
             for (String[] role : ConstTest.ROLES) {
-                xmRoleService.addRole(role[0], role[1], role[2]);
+                sysRoleService.addRole(role[0], role[1], role[2]);
             }
         } catch (BaseAppException e) {
             e.printStackTrace();
@@ -37,14 +37,14 @@ public class XmRoleServiceImplTest extends BaseServiceTest {
     public void queryRoles() {
         try {
             // 分页查询
-            List<XmRole> xmRoleList = xmRoleService.queryRoles(1, 10);
-            Page page = (Page) xmRoleList;
+            List<SysRole> sysRoleList = sysRoleService.queryRoles(1, 10);
+            Page page = (Page) sysRoleList;
             assertThat(page.getResult().size(), equalTo(3));
             assertThat(page.getTotal(), equalTo(3L));
 
             // 第2页数据
-            xmRoleList = xmRoleService.queryRoles(2, 10);
-            page = (Page) xmRoleList;
+            sysRoleList = sysRoleService.queryRoles(2, 10);
+            page = (Page) sysRoleList;
             assertThat(page.getResult().size(), equalTo(3));
             assertThat(page.getPageNum(), equalTo(1));
             assertThat(page.getTotal(), equalTo(3L));
@@ -55,15 +55,15 @@ public class XmRoleServiceImplTest extends BaseServiceTest {
     }
 
     @Test
-    public void queryRolesByManagerId() {
+    public void queryRolesByUserId() {
         try {
             // 查询用户角色
-            List<XmRole> xmRoleList = xmRoleService.queryRolesByManagerId(1L);
-            assertThat(xmRoleList.size(), equalTo(1));
+            List<SysRole> sysRoleList = sysRoleService.queryRolesByUserId(1L);
+            assertThat(sysRoleList.size(), equalTo(1));
 
             // 查询用户角色
-            xmRoleList = xmRoleService.queryRolesByManagerId(2L);
-            assertThat(xmRoleList.size(), equalTo(2));
+            sysRoleList = sysRoleService.queryRolesByUserId(2L);
+            assertThat(sysRoleList.size(), equalTo(2));
         } catch (BaseAppException e) {
             e.printStackTrace();
             Assert.fail("查询角色异常: " + e.getCode());

@@ -77,9 +77,9 @@ public abstract class BaseControllerTest extends BaseTest {
             String result = mvcResult.getResponse().getContentAsString();
             assertNotNull(result);
             JSONObject jsonResult = JSONObject.parseObject(result);
-            JSONObject xmManagerLogin = jsonResult.getJSONObject("result");
-            assertNotNull(xmManagerLogin);
-            assertEquals(phone, xmManagerLogin.getString("phone"));
+            JSONObject sysUserLogin = jsonResult.getJSONObject("result");
+            assertNotNull(sysUserLogin);
+            assertEquals(phone, sysUserLogin.getString("phone"));
 
             HttpSession httpSession = mvcResult.getRequest().getSession();
             assertNotNull(httpSession);

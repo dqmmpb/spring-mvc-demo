@@ -15,15 +15,15 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class XmRolePrivControllerTest extends BaseControllerTest {
+public class SysUserRoleControllerTest extends BaseControllerTest {
 
     @Test
-    public void addRolePriv() throws Exception {
-        String url = "/v1/sys/rolepriv/add";
+    public void addManagerRole() throws Exception {
+        String url = "/v1/sys/userrole/add";
 
         Map params = new HashMap();
-        params.put("roleId", 3);
-        params.put("privId", 1);
+        params.put("userId", 3);
+        params.put("roleId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -41,14 +41,13 @@ public class XmRolePrivControllerTest extends BaseControllerTest {
         assertEquals(true, jsonResult.getBoolean("success"));
     }
 
-
     @Test
-    public void deleteRolePriv() throws Exception {
-        String url = "/v1/sys/rolepriv/delete";
+    public void delManagerRole() throws Exception {
+        String url = "/v1/sys/userrole/delete";
 
         Map params = new HashMap();
-        params.put("roleId", 3);
-        params.put("privId", 1);
+        params.put("userId", 3);
+        params.put("roleId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);

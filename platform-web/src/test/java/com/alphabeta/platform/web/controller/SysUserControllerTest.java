@@ -3,7 +3,7 @@ package com.alphabeta.platform.web.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alphabeta.platform.core.domain.BaseParam;
-import com.alphabeta.platform.core.domain.model.XmManager;
+import com.alphabeta.platform.base.domain.model.SysUser;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -19,11 +19,11 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class XmManagerControllerTest extends BaseControllerTest {
+public class SysUserControllerTest extends BaseControllerTest {
 
     @Test
     public void addManager() throws Exception {
-        String url = "/v1/sys/manager/add";
+        String url = "/v1/sys/user/add";
 
         Map params = new HashMap();
         params.put("phone", "13819493703");
@@ -46,10 +46,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void editManager() throws Exception {
-        String url = "/v1/sys/manager/edit";
+        String url = "/v1/sys/user/edit";
 
         Map params = new HashMap();
-        params.put("managerId", 4);
+        params.put("userId", 4);
         params.put("name", "test");
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -70,10 +70,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void delManager() throws Exception {
-        String url = "/v1/sys/manager/delete";
+        String url = "/v1/sys/user/delete";
 
         Map params = new HashMap();
-        params.put("managerId", 4);
+        params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -93,10 +93,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void lockManager() throws Exception {
-        String url = "/v1/sys/manager/lock";
+        String url = "/v1/sys/user/lock";
 
         Map params = new HashMap();
-        params.put("managerId", 4);
+        params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -116,10 +116,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void unlockManager() throws Exception {
-        String url = "/v1/sys/manager/unlock";
+        String url = "/v1/sys/user/unlock";
 
         Map params = new HashMap();
-        params.put("managerId", 4);
+        params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -139,7 +139,7 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void changePwd() throws Exception {
-        String url = "/v1/sys/manager/changePwd";
+        String url = "/v1/sys/user/changePwd";
 
         Map params = new HashMap();
         params.put("oldPwd", "13819493703");
@@ -163,10 +163,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void resetPwd() throws Exception {
-        String url = "/v1/sys/manager/resetPwd";
+        String url = "/v1/sys/user/resetPwd";
 
         Map params = new HashMap();
-        params.put("managerId", 4);
+        params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -186,10 +186,10 @@ public class XmManagerControllerTest extends BaseControllerTest {
 
     @Test
     public void getManager() throws Exception {
-        String url = "/v1/sys/manager/get";
+        String url = "/v1/sys/user/get";
 
         Map params = new HashMap();
-        params.put("managerId", 3);
+        params.put("userId", 3);
         BaseParam param = new BaseParam();
         param.setParams(params);
         String requestJson = JSONObject.toJSONString(param);
@@ -204,15 +204,15 @@ public class XmManagerControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONObject xmManagerJsonObj = jsonResult.getJSONObject("result");
-        assertNotNull(xmManagerJsonObj);
-        XmManager xmManager = xmManagerJsonObj.toJavaObject(XmManager.class);
-        assertEquals("13819493702", xmManager.getPhone());
+        JSONObject sysUserJsonObj = jsonResult.getJSONObject("result");
+        assertNotNull(sysUserJsonObj);
+        SysUser sysUser = sysUserJsonObj.toJavaObject(SysUser.class);
+        assertEquals("13819493702", sysUser.getPhone());
     }
 
     @Test
     public void getManagersByRoleId() throws Exception {
-        String url = "/v1/sys/manager/managerrole";
+        String url = "/v1/sys/user/userrole";
 
         Map params = new HashMap();
         params.put("roleId", 2);
@@ -230,15 +230,15 @@ public class XmManagerControllerTest extends BaseControllerTest {
         String result = mvcResult.getResponse().getContentAsString();
         assertNotNull(result);
         JSONObject jsonResult = JSONObject.parseObject(result);
-        JSONArray xmManagerJsonArray = jsonResult.getJSONArray("result");
-        assertNotNull(xmManagerJsonArray);
-        List<XmManager> xmManagerList = xmManagerJsonArray.toJavaList(XmManager.class);
-        assertEquals(1, xmManagerList.size());
+        JSONArray sysUserJsonArray = jsonResult.getJSONArray("result");
+        assertNotNull(sysUserJsonArray);
+        List<SysUser> sysUserList = sysUserJsonArray.toJavaList(SysUser.class);
+        assertEquals(1, sysUserList.size());
     }
 
     @Test
     public void getManagers() throws Exception {
-        String url = "/v1/sys/manager/managers";
+        String url = "/v1/sys/user/users";
 
         Map params = new HashMap();
         params.put("pageNum", 1);
