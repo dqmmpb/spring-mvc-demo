@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.dao.mapper.ext.SysPrivExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysRolePrivExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysUserRoleExtMapper;
@@ -22,6 +21,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
 import static com.alphabeta.platform.base.common.ErrorCode.*;
 
 /**
@@ -64,7 +64,7 @@ public class SysPrivServiceImpl extends BaseService implements SysPrivService {
         Date now = new Date();
         sysPriv.setCreateTime(now);
         sysPriv.setUpdateTime(now);
-        sysPriv.setState(Const.STATE_A);
+        sysPriv.setState(STATE_A);
 
         return sysPrivExtMapper.insert(sysPriv);
     }

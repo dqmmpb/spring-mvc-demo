@@ -19,7 +19,7 @@ import static com.alphabeta.platform.web.common.ErrorCode.PARAMS_SIGN_FAILED_ERR
  * @author deng.qiming
  * @date 2016年11月8日 上午10:54:39
  */
-public abstract class BaseController extends com.alphabeta.platform.base.domain.BaseController {
+public abstract class BaseController extends com.alphabeta.platform.core.web.domain.BaseController {
 
     @Resource
     protected RedisTemplate<String, String> redisTemplate;

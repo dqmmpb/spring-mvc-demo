@@ -1,4 +1,4 @@
-package com.alphabeta.platform.base.spring;
+package com.alphabeta.platform.core.web.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

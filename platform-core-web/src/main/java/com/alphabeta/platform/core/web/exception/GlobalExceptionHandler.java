@@ -1,4 +1,4 @@
-package com.alphabeta.platform.base.exception;
+package com.alphabeta.platform.core.web.exception;
 
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.exception.BaseAppException;
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BaseAppException.class)
     public ResponseEntity<BaseResult> handleBaseAppException(HttpServletRequest request, HttpServletResponse response, BaseAppException e) {
         return new ResponseEntity<BaseResult>(buildBaseResult(e.getCode(), e.getDesc()),
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            HttpStatus.OK);
     }
 
     @ResponseBody

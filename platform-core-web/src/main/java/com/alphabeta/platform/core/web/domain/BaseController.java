@@ -1,4 +1,4 @@
-package com.alphabeta.platform.base.domain;
+package com.alphabeta.platform.core.web.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

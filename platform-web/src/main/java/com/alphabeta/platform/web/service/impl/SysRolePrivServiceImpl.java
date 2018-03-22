@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.dao.mapper.ext.SysRolePrivExtMapper;
 import com.alphabeta.platform.base.domain.model.SysRolePriv;
 import com.alphabeta.platform.core.domain.BaseService;
@@ -17,6 +16,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static com.alphabeta.platform.base.common.ErrorCode.ROLEPRIV_HAS_EXIST;
 
 /**
@@ -48,7 +49,7 @@ public class SysRolePrivServiceImpl extends BaseService implements SysRolePrivSe
         Date now = new Date();
         sysRolePriv.setCreateTime(now);
         sysRolePriv.setUpdateTime(now);
-        sysRolePriv.setState(Const.STATE_A);
+        sysRolePriv.setState(STATE_A);
 
         return sysRolePrivExtMapper.insert(sysRolePriv);
     }
@@ -70,7 +71,7 @@ public class SysRolePrivServiceImpl extends BaseService implements SysRolePrivSe
         SysRolePriv sysRolePriv = new SysRolePriv();
         sysRolePriv.setRoleId(roleId);
         sysRolePriv.setPrivId(privId);
-        sysRolePriv.setState(Const.STATE_X);
+        sysRolePriv.setState(STATE_X);
         return sysRolePrivExtMapper.updateByPrimaryKeySelective(sysRolePriv);
     }
 
@@ -80,7 +81,7 @@ public class SysRolePrivServiceImpl extends BaseService implements SysRolePrivSe
         SysRolePriv sysRolePriv = new SysRolePriv();
         sysRolePriv.setRoleId(roleId);
         sysRolePriv.setPrivId(privId);
-        sysRolePriv.setState(Const.STATE_A);
+        sysRolePriv.setState(STATE_A);
         return sysRolePrivExtMapper.updateByPrimaryKeySelective(sysRolePriv);
     }
 

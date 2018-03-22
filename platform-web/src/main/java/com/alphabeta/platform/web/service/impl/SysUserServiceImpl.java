@@ -1,17 +1,16 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.dao.mapper.ext.SysPrivExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysUserExtMapper;
 import com.alphabeta.platform.base.domain.model.SysUser;
-import com.alphabeta.platform.base.util.RegExpUtil;
 import com.alphabeta.platform.core.domain.BaseService;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.core.exception.ExceptionHandler;
 import com.alphabeta.platform.core.util.EncryptUtil;
 import com.alphabeta.platform.core.util.EqualsUtil;
 import com.alphabeta.platform.core.util.StringUtil;
+import com.alphabeta.platform.core.web.util.RegExpUtil;
 import com.alphabeta.platform.web.service.SysPrivService;
 import com.alphabeta.platform.web.service.SysUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +24,8 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static com.alphabeta.platform.base.common.ErrorCode.*;
 import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_ERROR;
 
@@ -80,7 +81,7 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
         Date now = new Date();
         sysUser.setCreateTime(now);
         sysUser.setUpdateTime(now);
-        sysUser.setState(Const.STATE_A);
+        sysUser.setState(STATE_A);
         sysUser.setStatus(StatusType.UNLOCK.getValue());
 
         return sysUserExtMapper.insert(sysUser);
@@ -106,7 +107,7 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
         //注意，不能删除用户
         SysUser sysUser = new SysUser();
         sysUser.setUserId(userId);
-        sysUser.setState(Const.STATE_X);
+        sysUser.setState(STATE_X);
 
         return sysUserExtMapper.updateByPrimaryKeySelective(sysUser);
     }

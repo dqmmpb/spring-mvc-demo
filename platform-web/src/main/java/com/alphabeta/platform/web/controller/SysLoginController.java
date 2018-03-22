@@ -2,15 +2,12 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.base.domain.model.SysUserSession;
-import com.alphabeta.platform.base.util.RequestUtils;
-import com.alphabeta.platform.base.util.SessionUtil;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
@@ -20,6 +17,8 @@ import com.alphabeta.platform.core.util.EqualsUtil;
 import com.alphabeta.platform.core.util.ListUtil;
 import com.alphabeta.platform.core.util.ObjectUtil;
 import com.alphabeta.platform.core.util.RSAUtil;
+import com.alphabeta.platform.core.web.util.RequestUtils;
+import com.alphabeta.platform.core.web.util.SessionUtil;
 import com.alphabeta.platform.web.result.model.LoginModel;
 import com.alphabeta.platform.web.result.model.MenuModel;
 import com.alphabeta.platform.web.service.*;
@@ -39,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.alphabeta.platform.base.common.ErrorCode.USER_NOT_LOGIN;
+import static com.alphabeta.platform.core.web.common.Const.*;
 import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_ERROR;
 import static com.alphabeta.platform.web.common.ErrorCode.INVALID_PARAMS_FORMAT_ERROR;
 
@@ -98,7 +98,7 @@ public class SysLoginController extends BaseController {
 
 
         HttpSession session = request.getSession();
-        Object obj = session.getAttribute(Const.SESSION_LOGIN_USER);
+        Object obj = session.getAttribute(SESSION_LOGIN_USER);
 
         if (obj == null) {
             loginModel.setLogin(false);
@@ -143,7 +143,7 @@ public class SysLoginController extends BaseController {
         BaseResult result = new BaseResult();
         LoginModel loginModel = new LoginModel();
         HttpSession session = request.getSession();
-        Object obj = session.getAttribute(Const.SESSION_LOGIN_USER);
+        Object obj = session.getAttribute(SESSION_LOGIN_USER);
 
         if (obj != null) {
             SysUser sysUser = (SysUser) obj;
@@ -288,11 +288,11 @@ public class SysLoginController extends BaseController {
         } else {
             logger.debug("sysUser is valid, then will generator token");
 
-            String ua = RequestUtils.getHeader(request, Const.HTTP_HEADER_USER_AGENT, "No User Agent");
+            String ua = RequestUtils.getHeader(request, HTTP_HEADER_USER_AGENT, "No User Agent");
             SysUserSession sysUserSession = sysUserSessionService.addSession(sysUser.getUserId(), sysUser.getPhone(), ua, session.getId());
 
-            session.setAttribute(Const.SESSION_LOGIN_USER, sysUser);
-            session.setAttribute(Const.SESSION_LOGIN_USER_SESSION, sysUserSession);
+            session.setAttribute(SESSION_LOGIN_USER, sysUser);
+            session.setAttribute(SESSION_LOGIN_USER_SESSION, sysUserSession);
             session.setMaxInactiveInterval(sessionExpireTime.intValue());
 
             loginModel.setLogin(true);
@@ -314,12 +314,12 @@ public class SysLoginController extends BaseController {
         HttpSession session = request.getSession();
 
         if (session != null) {
-            Object userObj = session.getAttribute(Const.SESSION_LOGIN_USER);
+            Object userObj = session.getAttribute(SESSION_LOGIN_USER);
             if (userObj != null) {
                 sysLoginService.logout((SysUser) userObj);
 
-                session.removeAttribute(Const.SESSION_LOGIN_USER);
-                session.removeAttribute(Const.SESSION_LOGIN_USER_SESSION);
+                session.removeAttribute(SESSION_LOGIN_USER);
+                session.removeAttribute(SESSION_LOGIN_USER_SESSION);
                 session.invalidate();
             }
         }

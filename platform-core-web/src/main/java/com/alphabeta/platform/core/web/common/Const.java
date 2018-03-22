@@ -1,12 +1,27 @@
-package com.alphabeta.platform.base.common;
+package com.alphabeta.platform.core.web.common;
 
 /**
- * web常量
+ * 常量
  *
  * @author deng.qiming
- * @date 2017-01-10 17:46
+ * @date 2016年11月8日 下午1:57:36
  */
-public interface Constants {
+public interface Const {
+
+    /* User-Agent*/
+    String HTTP_HEADER_USER_AGENT = "User-Agent";
+
+    /*登录用户标识*/
+    String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
+    /*登录用户session*/
+    String SESSION_LOGIN_USER_SESSION = "SESSION_LOGIN_USER_SESSION";
+
+    /*JSESSIONID*/
+    String JSESSIONID = "JSESSIONID";
+
+    /*redis端key前缀*/
+    String COMMON_SESSION_PREFIX = "PORTAL_SESSION";
+
     /**
      * 路径分隔符
      */
@@ -51,13 +66,11 @@ public interface Constants {
     String X_AUTH_MODE = "client_auth";
     String UPLOAD_MODE = "pic";
 
-    /***
-     * 与GlobalConstant中定义的值重复，因为codi-base不能引入codi-bus-base
-     */
     // Map - Key - Request
     String KEY_REQUEST = "_request";
     // Map - Key - Response
     String KEY_RESPONSE = "_response";
     // Map - Key - API
     String KEY_API = "_api";
+
 }

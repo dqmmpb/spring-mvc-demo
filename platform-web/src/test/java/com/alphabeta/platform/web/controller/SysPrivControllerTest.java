@@ -2,8 +2,8 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.core.domain.BaseParam;
+import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.web.result.model.MenuModel;
 import com.github.pagehelper.PageInfo;

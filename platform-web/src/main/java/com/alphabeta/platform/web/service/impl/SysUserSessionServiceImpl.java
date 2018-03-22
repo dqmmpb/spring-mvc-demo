@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.dao.mapper.ext.SysUserSessionExtMapper;
 import com.alphabeta.platform.base.domain.model.SysUserSession;
 import com.alphabeta.platform.core.domain.BaseService;
@@ -12,6 +11,8 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.Date;
+
+import static com.alphabeta.platform.base.common.Const.STATE_A;
 
 /**
  * @author deng.qiming
@@ -37,12 +38,12 @@ public class SysUserSessionServiceImpl extends BaseService implements SysUserSes
         session.setCreateTime(now);
         session.setUpdateTime(now);
         session.setLastUpdateTime(now);
-        session.setState(Const.STATE_A);
+        session.setState(STATE_A);
         session.setUa(ua);
 
         sysUserSessionExtMapper.insert(session);
 
-//        String key = CacheUtil.getKey(Const.COMMON_SESSION_PREFIX, session.getToken());
+//        String key = CacheUtil.getKey(COMMON_SESSION_PREFIX, session.getToken());
 //        CacheUtil.setStrObj(redisTemplate, key, session);
 
         return session;
@@ -60,7 +61,7 @@ public class SysUserSessionServiceImpl extends BaseService implements SysUserSes
 
     @Override
     public boolean validate(String token) throws BaseAppException {
-//        String key = CacheUtil.getKey(Const.COMMON_SESSION_PREFIX, token);
+//        String key = CacheUtil.getKey(COMMON_SESSION_PREFIX, token);
 //        SysUserSession userSession = CacheUtil.getStrObj(redisTemplate, key, SysUserSession.class);
 //
 //        if (userSession == null) {
