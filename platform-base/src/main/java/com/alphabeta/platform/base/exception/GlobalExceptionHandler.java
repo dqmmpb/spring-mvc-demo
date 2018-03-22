@@ -2,6 +2,7 @@ package com.alphabeta.platform.base.exception;
 
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.exception.BaseAppException;
+import com.alphabeta.platform.core.util.CodeUtil;
 import com.alphabeta.platform.core.util.ExceptionUtil;
 import com.alphabeta.platform.core.util.I18NUtil;
 import org.slf4j.Logger;
@@ -28,7 +29,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import static com.alphabeta.platform.core.common.ErrorCode.ERROR_INVALID_REQUEST;
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BaseResult> handleBindException(BindException e) {
         List<ObjectError> errors = e.getAllErrors();
         try {
-            Assert.notEmpty(errors, ERROR_SYS_EXCEPTION.getCodeString());
+            Assert.notEmpty(errors, null);
         } catch (IllegalArgumentException ie) {
             return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, null), HttpStatus.BAD_REQUEST);
         }
@@ -96,19 +96,8 @@ public class GlobalExceptionHandler {
     }
 
     private BaseResult buildBaseResult(Enum<?> errorCode, String errorMsg) {
-        try {
-            Method method = errorCode.getClass().getMethod("getCodeString");
-            Object errorCodeString = method.invoke(errorCode);
-            return this.buildBaseResult((String) errorCodeString, errorMsg);
-        } catch (Exception e) {
-            try {
-                Method method = errorCode.getClass().getMethod("getCode");
-                Object errorCodeInteger = method.invoke(errorCode);
-                return this.buildBaseResult("" + errorCodeInteger, errorMsg);
-            } catch (Exception ie) {
-                return this.buildBaseResult(ERROR_SYS_EXCEPTION, errorMsg);
-            }
-        }
+        String errorCodeString = CodeUtil.getCodeToString(errorCode);
+        return this.buildBaseResult(errorCodeString, errorMsg);
     }
 
     private BaseResult buildBaseResult(String errorCode, String errorMsg) {
