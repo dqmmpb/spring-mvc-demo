@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.dao.mapper.ext.SysUserRoleExtMapper;
 import com.alphabeta.platform.base.domain.model.SysUserRole;
 import com.alphabeta.platform.core.domain.BaseService;
@@ -17,6 +16,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static com.alphabeta.platform.base.common.ErrorCode.USERROLE_HAS_EXIST;
 
 /**
@@ -44,7 +45,7 @@ public class SysUserRoleServiceImpl extends BaseService implements SysUserRoleSe
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setUserId(userId);
         sysUserRole.setRoleId(roleId);
-        sysUserRole.setState(Const.STATE_A);
+        sysUserRole.setState(STATE_A);
 
         Date now = new Date();
         sysUserRole.setCreateTime(now);
@@ -67,22 +68,22 @@ public class SysUserRoleServiceImpl extends BaseService implements SysUserRoleSe
     @Override
     @Transactional(readOnly = false)
     public int disableUserRole(Long userId, Long roleId) throws BaseAppException {
-        logger.debug("disableUserRole userId={},roleId={},state={}", userId, roleId, Const.STATE_X);
+        logger.debug("disableUserRole userId={},roleId={},state={}", userId, roleId, STATE_X);
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setUserId(userId);
         sysUserRole.setRoleId(roleId);
-        sysUserRole.setState(Const.STATE_X);
+        sysUserRole.setState(STATE_X);
         return sysUserRoleExtMapper.updateByPrimaryKeySelective(sysUserRole);
     }
 
     @Override
     @Transactional(readOnly = false)
     public int enableUserRole(Long userId, Long roleId) throws BaseAppException {
-        logger.debug("disableUserRole userId={},roleId={},state={}", userId, roleId, Const.STATE_A);
+        logger.debug("enableUserRole userId={},roleId={},state={}", userId, roleId, STATE_A);
         SysUserRole sysUserRole = new SysUserRole();
         sysUserRole.setUserId(userId);
         sysUserRole.setRoleId(roleId);
-        sysUserRole.setState(Const.STATE_A);
+        sysUserRole.setState(STATE_A);
         return sysUserRoleExtMapper.updateByPrimaryKeySelective(sysUserRole);
     }
 

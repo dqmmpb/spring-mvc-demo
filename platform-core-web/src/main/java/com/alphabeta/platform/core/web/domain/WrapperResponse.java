@@ -1,4 +1,4 @@
-package com.alphabeta.platform.base.domain;
+package com.alphabeta.platform.core.web.domain;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;

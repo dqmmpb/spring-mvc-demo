@@ -35,6 +35,10 @@
       <groupId>com.alphabeta</groupId>
       <artifactId>platform-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.alphabeta</groupId>
+      <artifactId>platform-core-web</artifactId>
+    </dependency>
 
 
     <!-- ============================== -->

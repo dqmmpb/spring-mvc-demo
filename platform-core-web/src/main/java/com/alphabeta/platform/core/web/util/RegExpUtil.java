@@ -1,8 +1,8 @@
-package com.alphabeta.platform.base.util;
-
-import com.alphabeta.platform.base.common.RegExpConst;
+package com.alphabeta.platform.core.web.util;
 
 import java.util.regex.Pattern;
+
+import static com.alphabeta.platform.core.web.common.RegExpConst.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +18,7 @@ public class RegExpUtil {
      * @return
      */
     public static boolean isPhone(String phone) {
-        return Pattern.matches(RegExpConst.PHONE, phone);
+        return Pattern.matches(REGEXP_PHONE, phone);
     }
 
     /**
@@ -28,7 +28,7 @@ public class RegExpUtil {
      * @return
      */
     public static boolean isEmail(String email) {
-        return Pattern.matches(RegExpConst.EMAIL, email);
+        return Pattern.matches(REGEXP_EMAIL, email);
     }
 
     /**
@@ -38,6 +38,6 @@ public class RegExpUtil {
      * @return
      */
     public static boolean isPassword(String password) {
-        return Pattern.matches(RegExpConst.PASSWORD, password);
+        return Pattern.matches(REGEXP_PASSWORD, password);
     }
 }

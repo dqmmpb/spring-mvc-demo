@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.dao.mapper.ext.SysRoleExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysRolePrivExtMapper;
 import com.alphabeta.platform.base.dao.mapper.ext.SysUserRoleExtMapper;
@@ -18,6 +17,8 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static com.alphabeta.platform.base.common.ErrorCode.*;
 
 /**
@@ -58,7 +59,7 @@ public class SysRoleServiceImpl extends BaseService implements SysRoleService {
         Date now = new Date();
         sysRole.setCreateTime(now);
         sysRole.setUpdateTime(now);
-        sysRole.setState(Const.STATE_A);
+        sysRole.setState(STATE_A);
 
         sysRoleExtMapper.insert(sysRole);
         return 0;
@@ -114,7 +115,7 @@ public class SysRoleServiceImpl extends BaseService implements SysRoleService {
     public int disableRole(Long roleId) throws BaseAppException {
         SysRole sysRole = new SysRole();
         sysRole.setRoleId(roleId);
-        sysRole.setState(Const.STATE_X);
+        sysRole.setState(STATE_X);
         return sysRoleExtMapper.updateByPrimaryKeySelective(sysRole);
     }
 
@@ -137,7 +138,7 @@ public class SysRoleServiceImpl extends BaseService implements SysRoleService {
     public int enableRole(Long roleId) throws BaseAppException {
         SysRole sysRole = new SysRole();
         sysRole.setRoleId(roleId);
-        sysRole.setState(Const.STATE_A);
+        sysRole.setState(STATE_A);
         return sysRoleExtMapper.updateByPrimaryKeySelective(sysRole);
     }
 

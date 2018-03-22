@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.aop;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
@@ -26,7 +25,9 @@ import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static com.alphabeta.platform.base.common.ErrorCode.*;
+import static com.alphabeta.platform.core.web.common.Const.SESSION_LOGIN_USER;
 
 /**
  * 模块名
@@ -57,7 +58,7 @@ public class UserPrivAspect {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             HttpSession session = request.getSession();
 
-            Object userObj = session.getAttribute(Const.SESSION_LOGIN_USER);
+            Object userObj = session.getAttribute(SESSION_LOGIN_USER);
             if (userObj == null) {
                 logger.error("session user is null, plz check!");
                 ExceptionHandler.publish(USER_SESSION_TIMEOUT);
@@ -75,7 +76,7 @@ public class UserPrivAspect {
             sysUser.setStatus(realUser.getStatus());
 
             // 判断用户可用状态
-            if (EqualsUtil.equals(sysUser.getState(), Const.STATE_X)) {
+            if (EqualsUtil.equals(sysUser.getState(), STATE_X)) {
                 logger.debug("user has been delete");
                 ExceptionHandler.publish(USER_HAS_DELETED);
             }

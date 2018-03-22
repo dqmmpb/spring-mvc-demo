@@ -1,7 +1,6 @@
-package com.alphabeta.platform.base.util;
+package com.alphabeta.platform.core.web.util;
 
 import com.alibaba.fastjson.JSON;
-import com.alphabeta.platform.base.common.Constants;
 import com.alphabeta.platform.core.log.desensitizer.DesensitizeModel;
 import com.alphabeta.platform.core.util.CookieUtils;
 import com.alphabeta.platform.core.util.ExceptionUtil;
@@ -24,8 +23,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.alphabeta.platform.base.common.Constants.POST;
-import static com.alphabeta.platform.base.common.Constants.UTF8;
+import static com.alphabeta.platform.core.web.common.Const.*;
 
 /**
  * HttpServletRequest帮助类
@@ -302,7 +300,7 @@ public class RequestUtils {
             return sid;
         } else {
             // 手动从cookie获取
-            Cookie cookie = CookieUtils.getCookie(request, Constants.JSESSION_COOKIE);
+            Cookie cookie = CookieUtils.getCookie(request, JSESSION_COOKIE);
             if (cookie != null) {
                 return cookie.getValue();
             } else {

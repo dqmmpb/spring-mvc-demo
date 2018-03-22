@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.core.exception.BaseAppException;
@@ -16,6 +15,8 @@ import org.junit.Test;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
+import static com.alphabeta.platform.base.common.Const.STATE_X;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -33,7 +34,7 @@ public class SysUserServiceImplTest extends BaseServiceTest {
             Assert.assertNotNull(sysUser);
             sysUserService.delUser(sysUser.getUserId());
             sysUser = sysUserService.getUser(phone);
-            Assert.assertEquals(Const.STATE_X, sysUser.getState());
+            Assert.assertEquals(STATE_X, sysUser.getState());
 
         } catch (BaseAppException e) {
             e.printStackTrace();
@@ -69,10 +70,10 @@ public class SysUserServiceImplTest extends BaseServiceTest {
             SysUser sysUser = sysUserService.getUser(phone);
             Assert.assertNotNull(sysUser);
 
-            if (Const.STATE_A.equals(sysUser.getState())) {
-                sysUser.setState(Const.STATE_X);
-            } else if (Const.STATE_X.equals(sysUser.getState())) {
-                sysUser.setState(Const.STATE_A);
+            if (STATE_A.equals(sysUser.getState())) {
+                sysUser.setState(STATE_X);
+            } else if (STATE_X.equals(sysUser.getState())) {
+                sysUser.setState(STATE_A);
             }
 
             sysUserService.updateUser(sysUser);

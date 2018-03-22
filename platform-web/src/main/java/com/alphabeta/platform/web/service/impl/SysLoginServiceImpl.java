@@ -1,6 +1,5 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.base.common.Const;
 import com.alphabeta.platform.base.common.StatusType;
 import com.alphabeta.platform.base.domain.model.SysUser;
 import com.alphabeta.platform.core.domain.BaseService;
@@ -15,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 
+import static com.alphabeta.platform.base.common.Const.STATE_A;
 import static com.alphabeta.platform.base.common.ErrorCode.USER_HAS_LOCKED;
 import static com.alphabeta.platform.base.common.ErrorCode.USER_NAME_OR_PWD_ERROR;
 
@@ -42,7 +42,7 @@ public class SysLoginServiceImpl extends BaseService implements SysLoginService 
             ExceptionHandler.publish(USER_NAME_OR_PWD_ERROR);
         }
 
-        if (!EqualsUtil.equals(Const.STATE_A, sysUser.getState())) {
+        if (!EqualsUtil.equals(STATE_A, sysUser.getState())) {
             logger.debug("sysUser [{}] not exist", phone);
             ExceptionHandler.publish(USER_NAME_OR_PWD_ERROR);
         }

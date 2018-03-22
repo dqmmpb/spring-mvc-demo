@@ -1,10 +1,10 @@
-package com.alphabeta.platform.base.util;
+package com.alphabeta.platform.core.web.util;
 
 import com.alibaba.fastjson.JSON;
-import com.alphabeta.platform.base.domain.WrapperResponse;
-import com.alphabeta.platform.base.spring.SpringContextHolder;
 import com.alphabeta.platform.core.log.desensitizer.LogProxy;
 import com.alphabeta.platform.core.util.ExceptionUtil;
+import com.alphabeta.platform.core.web.domain.WrapperResponse;
+import com.alphabeta.platform.core.web.spring.SpringContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
