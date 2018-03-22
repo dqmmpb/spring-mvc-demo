@@ -1,12 +1,10 @@
 package com.alphabeta.platform.core.exception;
 
+import com.alphabeta.platform.core.util.CodeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import static com.alphabeta.platform.core.common.ErrorCode.ERROR_SYS_EXCEPTION;
 
 /**
  * 抛出异常处理类
@@ -38,39 +36,8 @@ public class ExceptionHandler {
      * @throws BaseAppException
      */
     public static BaseAppException publish(Enum<?> errorCode, String msg) throws BaseAppException {
-        try {
-            Method method = errorCode.getClass().getMethod("getCodeString");
-            Object errorCodeString = method.invoke(errorCode);
-            return publish((String) errorCodeString, msg);
-        } catch (NoSuchMethodException e) {
-            return publishCode(errorCode, msg);
-        } catch (IllegalAccessException e) {
-            return publishCode(errorCode, msg);
-        } catch (InvocationTargetException e) {
-            return publishCode(errorCode, msg);
-        }
-    }
-
-    /**
-     * 抛出异常
-     *
-     * @param errorCode
-     * @param msg
-     * @return
-     * @throws BaseAppException
-     */
-    private static BaseAppException publishCode(Enum<?> errorCode, String msg) throws BaseAppException {
-        try {
-            Method method = errorCode.getClass().getMethod("getCode");
-            Object errorCodeInteger = method.invoke(errorCode);
-            return publish("" + errorCodeInteger, msg);
-        } catch (NoSuchMethodException e) {
-            return publish(ERROR_SYS_EXCEPTION);
-        } catch (IllegalAccessException e) {
-            return publish(ERROR_SYS_EXCEPTION);
-        } catch (InvocationTargetException e) {
-            return publish(ERROR_SYS_EXCEPTION);
-        }
+        String errorCodeString = CodeUtil.getCodeToString(errorCode);
+        return publish(errorCodeString, msg);
     }
 
     /**

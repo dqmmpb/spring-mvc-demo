@@ -27,8 +27,4 @@ public enum ErrorCode {
     public int getCode() {
         return code;
     }
-
-    public String getCodeString() {
-        return "" + code;
-    }
 }
