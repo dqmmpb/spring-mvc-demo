@@ -5,6 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
   <import resource="classpath:spring/platform-core.xml"/>
+  <import resource="classpath:config/spring-sys.xml"/>
 
   <!-- 国际化资源文件 -->
   <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -19,5 +20,8 @@
       </list>
     </property>
   </bean>
+
+  <!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->
+  <bean class="com.alphabeta.platform.core.web.spring.SpringContextHolder" lazy-init="false"/>
 
 </beans>

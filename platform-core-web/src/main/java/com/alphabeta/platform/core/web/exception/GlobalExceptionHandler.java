@@ -5,10 +5,12 @@ import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.core.util.CodeUtil;
 import com.alphabeta.platform.core.util.ExceptionUtil;
 import com.alphabeta.platform.core.util.I18NUtil;
+import com.alphabeta.platform.core.util.ObjectUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -40,39 +42,46 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @Value("${sys.ignore.errorMsg}")
+    private boolean ignoreErrorMsg;
+
     @ResponseBody
     @ExceptionHandler(value = BaseAppException.class)
     public ResponseEntity<BaseResult> handleBaseAppException(HttpServletRequest request, HttpServletResponse response, BaseAppException e) {
-        return new ResponseEntity<BaseResult>(buildBaseResult(e.getCode(), e.getDesc()),
-            HttpStatus.OK);
+        ExceptionUtil.logError(logger, "BaseApp exceptions!!!", e);
+        return new ResponseEntity<BaseResult>(buildBaseResult(e.getCode(), e.getDesc(), false), HttpStatus.OK);
     }
 
     @ResponseBody
     @ExceptionHandler(value = HttpMediaTypeNotAcceptableException.class)
     public ResponseEntity<BaseResult> handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException be) {
+        ExceptionUtil.logError(logger, "HttpMediaTypeNotAcceptable exceptions!!!", be);
         return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, be.getMessage()), HttpStatus.UNSUPPORTED_MEDIA_TYPE);
     }
 
     @ResponseBody
     @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<BaseResult> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException be) {
+        ExceptionUtil.logError(logger, "HttpRequestMethodNotSupported exceptions!!!", be);
         return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, be.getMessage()), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ResponseBody
     @ExceptionHandler(value = NoHandlerFoundException.class)
     public ResponseEntity<?> handleNoHandlerFoundException(NoHandlerFoundException be) {
-        return new ResponseEntity<>(be.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
+        ExceptionUtil.logError(logger, "NoHandlerFound exceptions!!!", be);
+        return new ResponseEntity<>(buildBaseResult(ERROR_SYS_EXCEPTION, be.getMessage()), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     @ResponseBody
     @ExceptionHandler(BindException.class)
     public ResponseEntity<BaseResult> handleBindException(BindException e) {
+        ExceptionUtil.logError(logger, "Bind exceptions!!!", e);
         List<ObjectError> errors = e.getAllErrors();
         try {
             Assert.notEmpty(errors, null);
         } catch (IllegalArgumentException ie) {
-            return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, null), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, ie.getMessage()), HttpStatus.BAD_REQUEST);
         }
         ObjectError error = e.getAllErrors().get(0);
         return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, error.getDefaultMessage()), HttpStatus.BAD_REQUEST);
@@ -83,34 +92,69 @@ public class GlobalExceptionHandler {
         MissingServletRequestParameterException.class, MissingServletRequestPartException.class,
         TypeMismatchException.class, ServletRequestBindingException.class})
     public ResponseEntity<BaseResult> handleExceptions(Exception e) {
-        return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_INVALID_REQUEST, e.getMessage()),
-            HttpStatus.BAD_REQUEST);
+        ExceptionUtil.logError(logger, "BadRequest exceptions!!!", e);
+        return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_INVALID_REQUEST, e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ResponseBody
     @ExceptionHandler(value = {ConversionNotSupportedException.class, HttpMessageNotWritableException.class, Exception.class})
     public ResponseEntity<BaseResult> handleException(Exception e) {
         ExceptionUtil.logError(logger, "Unexpected exceptions!!!", e);
-        return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, null),
-            HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<BaseResult>(buildBaseResult(ERROR_SYS_EXCEPTION, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * 默认忽略 errorMsg
+     * @param errorCode
+     * @param errorMsg
+     * @return
+     */
     private BaseResult buildBaseResult(Enum<?> errorCode, String errorMsg) {
-        String errorCodeString = CodeUtil.getCodeToString(errorCode);
-        return this.buildBaseResult(errorCodeString, errorMsg);
+        return this.buildBaseResult(errorCode, errorMsg, true);
     }
 
+    /**
+     * @param errorCode
+     * @param errorMsg
+     * @param ignore 是否忽略 true:忽略；false:不忽略
+     * @return
+     */
+    private BaseResult buildBaseResult(Enum<?> errorCode, String errorMsg, boolean ignore) {
+        String errorCodeString = CodeUtil.getCodeToString(errorCode);
+        return this.buildBaseResult(errorCodeString, errorMsg, ignore);
+    }
+
+    /**
+     * 默认忽略 errorMsg
+     * @param errorCode
+     * @param errorMsg
+     * @return
+     */
     private BaseResult buildBaseResult(String errorCode, String errorMsg) {
+        return buildBaseResult(errorCode, errorMsg, true);
+    }
+
+    /**
+     *
+     * @param errorCode
+     * @param errorMsg
+     * @param ignore 是否忽略 true:忽略；false:不忽略
+     * @return
+     */
+    private BaseResult buildBaseResult(String errorCode, String errorMsg, boolean ignore) {
         BaseResult result = new BaseResult();
         result.setSuccess(false);
         result.setErrorCode(errorCode);
-        if (errorMsg == null) {
+
+        // 是否忽略errorMsg，如果开启的全局开关，则忽略，全局开关默认true，即忽略非BaseAppException外的errorMsg
+        if((ignoreErrorMsg || !ignore) && ObjectUtil.isNotNull(errorMsg)) {
+            result.setErrorMessage(errorMsg);
+        } else {
             String errorMessage = I18NUtil.getMessage(errorCode);
             result.setErrorMessage(errorMessage);
-        } else {
-            result.setErrorMessage(errorMsg);
         }
         return result;
     }
+
 
 }
