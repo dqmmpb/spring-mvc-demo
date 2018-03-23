@@ -194,7 +194,7 @@ public class SysRoleController extends BaseController {
 
         BaseResult result = new BaseResult();
         List<SysRole> sysRoleList = sysRoleService.queryRoles(pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysRoleList);
+        PageInfo<SysRole> page = new PageInfo<SysRole>(sysRoleList);
         result.setResult(page);
 
         return result;

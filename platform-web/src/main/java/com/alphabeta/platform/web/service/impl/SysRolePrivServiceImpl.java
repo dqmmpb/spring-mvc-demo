@@ -116,16 +116,16 @@ public class SysRolePrivServiceImpl extends BaseService implements SysRolePrivSe
             oldPrivIds.add(sysRolePriv.getPrivId());
         }
 
-        HashSet oldSet = new HashSet();
+        HashSet<Long> oldSet = new HashSet<Long>();
         oldSet.addAll(oldPrivIds);
-        HashSet newSet = new HashSet();
+        HashSet<Long> newSet = new HashSet<Long>();
         newSet.addAll(privIds);
 
-        HashSet deleteSet = new HashSet();
+        HashSet<Long> deleteSet = new HashSet<Long>();
         deleteSet.addAll(oldPrivIds);
         deleteSet.removeAll(newSet);
 
-        HashSet addSet = new HashSet();
+        HashSet<Long> addSet = new HashSet<Long>();
         addSet.addAll(privIds);
         addSet.removeAll(oldSet);
 

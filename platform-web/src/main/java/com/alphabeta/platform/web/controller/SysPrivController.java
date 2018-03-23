@@ -158,7 +158,7 @@ public class SysPrivController extends BaseController {
         } catch (Exception e) {
             logger.info("privs list get error, will return empty list");
         }
-        PageInfo page = new PageInfo(sysPrivList);
+        PageInfo<SysPriv> page = new PageInfo<SysPriv>(sysPrivList);
         result.setResult(page);
         return result;
 
@@ -233,7 +233,7 @@ public class SysPrivController extends BaseController {
 
         BaseResult result = new BaseResult();
         List<SysPriv> sysPrivList = sysPrivService.queryPrivs(pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysPrivList);
+        PageInfo<SysPriv> page = new PageInfo<SysPriv>(sysPrivList);
         result.setResult(page);
 
         return result;

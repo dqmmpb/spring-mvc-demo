@@ -119,16 +119,16 @@ public class SysUserRoleServiceImpl extends BaseService implements SysUserRoleSe
             oldRoleIds.add(sysUserRole.getRoleId());
         }
 
-        HashSet oldSet = new HashSet();
+        HashSet<Long> oldSet = new HashSet<Long>();
         oldSet.addAll(oldRoleIds);
-        HashSet newSet = new HashSet();
+        HashSet<Long> newSet = new HashSet<Long>();
         newSet.addAll(roleIds);
 
-        HashSet deleteSet = new HashSet();
+        HashSet<Long> deleteSet = new HashSet<Long>();
         deleteSet.addAll(oldRoleIds);
         deleteSet.removeAll(newSet);
 
-        HashSet addSet = new HashSet();
+        HashSet<Long> addSet = new HashSet<Long>();
         addSet.addAll(roleIds);
         addSet.removeAll(oldSet);
 

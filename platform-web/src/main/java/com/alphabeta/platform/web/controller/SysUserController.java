@@ -226,7 +226,7 @@ public class SysUserController extends BaseController {
         String filter = (String) params.get("filter");
 
         List<SysUser> sysUserList = sysUserService.queryUsers(filter, pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysUserList);
+        PageInfo<SysUser> page = new PageInfo<SysUser>(sysUserList);
         BaseResult result = new BaseResult();
         result.setResult(page);
         return result;
