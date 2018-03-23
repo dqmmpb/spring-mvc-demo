@@ -44,7 +44,7 @@ public class SysLoginControllerTest extends BaseControllerTest {
     public void login() throws Exception {
         String url = "/v1/sys/login";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("phone", "13819493701");
         params.put("password", "123456");
         BaseParam param = new BaseParam();

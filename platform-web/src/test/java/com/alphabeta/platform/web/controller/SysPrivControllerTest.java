@@ -2,9 +2,9 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
+import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.web.result.model.MenuModel;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void addPriv() throws Exception {
         String url = "/v1/sys/priv/add";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("privName", "新建权限测试管理");
         params.put("privCode", "sys:test:dir:manage");
         params.put("type", PrivType.DIR.getValue());
@@ -56,7 +56,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
         String url = "/v1/sys/priv/edit";
 
         // privCode和createTime在编辑的时候，不允许修改
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("privId", 32);
         params.put("description", "这是一个已经编辑过的测试");
 
@@ -81,7 +81,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void delPriv() throws Exception {
         String url = "/v1/sys/priv/delete";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("privId", 32);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -104,7 +104,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void getPriv() throws Exception {
         String url = "/v1/sys/priv/get";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("privId", 29);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -131,7 +131,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void getRolePrivs() throws Exception {
         String url = "/v1/sys/priv/rolepriv";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("roleId", 1);
         params.put("pageNum", 1);
         params.put("pageSize", 10);
@@ -219,7 +219,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void getUserPrivsByManagerId() throws Exception {
         String url = "/v1/sys/priv/userpriv";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -262,7 +262,7 @@ public class SysPrivControllerTest extends BaseControllerTest {
     public void getPrivs() throws Exception {
         String url = "/v1/sys/priv/privs";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pageNum", 1);
         params.put("pageSize", 10);
         BaseParam param = new BaseParam();

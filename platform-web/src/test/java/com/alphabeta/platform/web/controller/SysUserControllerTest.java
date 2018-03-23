@@ -2,8 +2,8 @@ package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.core.domain.BaseParam;
 import com.github.pagehelper.PageInfo;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -25,7 +25,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void addManager() throws Exception {
         String url = "/v1/sys/user/add";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("phone", "13819493703");
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -48,7 +48,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void editManager() throws Exception {
         String url = "/v1/sys/user/edit";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 4);
         params.put("name", "test");
         BaseParam param = new BaseParam();
@@ -72,7 +72,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void delManager() throws Exception {
         String url = "/v1/sys/user/delete";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -95,7 +95,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void lockManager() throws Exception {
         String url = "/v1/sys/user/lock";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -118,7 +118,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void unlockManager() throws Exception {
         String url = "/v1/sys/user/unlock";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -141,7 +141,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void changePwd() throws Exception {
         String url = "/v1/sys/user/changePwd";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("oldPwd", "13819493703");
         params.put("newPwd", "123456");
         BaseParam param = new BaseParam();
@@ -165,7 +165,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void resetPwd() throws Exception {
         String url = "/v1/sys/user/resetPwd";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 4);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -188,7 +188,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void getManager() throws Exception {
         String url = "/v1/sys/user/get";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 3);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -214,7 +214,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void getManagersByRoleId() throws Exception {
         String url = "/v1/sys/user/userrole";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("roleId", 2);
         BaseParam param = new BaseParam();
         param.setParams(params);
@@ -240,7 +240,7 @@ public class SysUserControllerTest extends BaseControllerTest {
     public void getManagers() throws Exception {
         String url = "/v1/sys/user/users";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("pageNum", 1);
         params.put("pageSize", 10);
         BaseParam param = new BaseParam();
