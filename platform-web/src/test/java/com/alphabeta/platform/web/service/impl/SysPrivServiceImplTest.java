@@ -1,9 +1,9 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.core.i18n.I18NMgr;
 import com.alphabeta.platform.base.common.PrivType;
 import com.alphabeta.platform.base.domain.model.SysPriv;
+import com.alphabeta.platform.core.exception.BaseAppException;
+import com.alphabeta.platform.core.i18n.I18NMgr;
 import com.alphabeta.platform.web.common.ConstTest;
 import com.alphabeta.platform.web.service.BaseServiceTest;
 import com.alphabeta.platform.web.service.SysPrivService;

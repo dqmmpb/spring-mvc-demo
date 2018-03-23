@@ -1,8 +1,8 @@
 package com.alphabeta.platform.web.service.impl;
 
-import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.web.common.ConstTest;
 import com.alphabeta.platform.web.service.BaseServiceTest;
 import com.alphabeta.platform.web.service.SysRoleService;

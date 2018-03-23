@@ -105,6 +105,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 默认忽略 errorMsg
+     *
      * @param errorCode
      * @param errorMsg
      * @return
@@ -116,7 +117,7 @@ public class GlobalExceptionHandler {
     /**
      * @param errorCode
      * @param errorMsg
-     * @param ignore 是否忽略 true:忽略；false:不忽略
+     * @param ignore    是否忽略 true:忽略；false:不忽略
      * @return
      */
     private BaseResult buildBaseResult(Enum<?> errorCode, String errorMsg, boolean ignore) {
@@ -126,6 +127,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 默认忽略 errorMsg
+     *
      * @param errorCode
      * @param errorMsg
      * @return
@@ -135,10 +137,9 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     *
      * @param errorCode
      * @param errorMsg
-     * @param ignore 是否忽略 true:忽略；false:不忽略
+     * @param ignore    是否忽略 true:忽略；false:不忽略
      * @return
      */
     private BaseResult buildBaseResult(String errorCode, String errorMsg, boolean ignore) {
@@ -147,7 +148,7 @@ public class GlobalExceptionHandler {
         result.setErrorCode(errorCode);
 
         // 是否忽略errorMsg，如果开启的全局开关，则忽略，全局开关默认true，即忽略非BaseAppException外的errorMsg
-        if((ignoreErrorMsg || !ignore) && ObjectUtil.isNotNull(errorMsg)) {
+        if ((ignoreErrorMsg || !ignore) && ObjectUtil.isNotNull(errorMsg)) {
             result.setErrorMessage(errorMsg);
         } else {
             String errorMessage = I18NUtil.getMessage(errorCode);
