@@ -17,6 +17,7 @@
     <module>platform-core</module>
     <module>platform-core-web</module>
     <module>platform-base</module>
+    <module>platform-web-base</module>
     <module>platform-web</module>
   </modules>
 
@@ -80,6 +81,11 @@
       <dependency>
         <groupId>com.alphabeta</groupId>
         <artifactId>platform-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alphabeta</groupId>
+        <artifactId>platform-web-base</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
 

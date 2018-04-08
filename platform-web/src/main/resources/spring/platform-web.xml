@@ -9,7 +9,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:spring/platform-base.xml"/>
+  <import resource="classpath:spring/platform-web-base.xml"/>
   <import resource="classpath:config/spring-redis.xml"/>
 
   <!-- 配置文件 -->
