@@ -45,7 +45,7 @@ public class SysUserServiceImplTest extends BaseServiceTest {
     @Test
     public void addUser() {
         try {
-            for (String[] user : ConstTest.MANAGERS) {
+            for (String[] user : ConstTest.USERS) {
                 String phone = user[0];
                 SysUser sysUser = sysUserService.getUser(phone);
                 Assert.assertNull(sysUser);

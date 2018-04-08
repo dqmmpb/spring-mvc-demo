@@ -1095,7 +1095,7 @@
               "raw": "{\n\t\"params\": {\n\t\t\"pageNum\": 1,\n\t\t\"pageSize\": 20\n\t}\n}"
             },
             "url": {
-              "raw": "{{host}}/{{project}}/v1/sys/manager/managers",
+              "raw": "{{host}}/{{project}}/v1/sys/user/users",
               "host": [
                 "{{host}}"
               ],
@@ -1103,8 +1103,8 @@
                 "{{project}}",
                 "v1",
                 "sys",
-                "manager",
-                "managers"
+                "user",
+                "users"
               ]
             }
           },

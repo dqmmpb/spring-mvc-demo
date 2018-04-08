@@ -53,7 +53,7 @@ public class ConstTest {
         {"User", "普通用户", "普通用户"},
     };
 
-    public final static String[][] MANAGERS = {
+    public final static String[][] USERS = {
         {"13819493700", "123456"},
         {"13819493701", "123456"},
         {"13819493702", "123456"},
