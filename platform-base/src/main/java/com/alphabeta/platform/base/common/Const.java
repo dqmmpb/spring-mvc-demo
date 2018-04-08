@@ -8,9 +8,6 @@ package com.alphabeta.platform.base.common;
  */
 public interface Const {
 
-    /* User-Agent*/
-    String HTTP_HEADER_USER_AGENT = "User-Agent";
-
     /*状态可用*/
     String STATE_A = "A";
 
@@ -27,18 +24,8 @@ public interface Const {
     /*验证码有效时间（单位：秒）*/
     Integer VCODE_VALIDITY_TIMES = 5 * 60;
 
-    /*登录用户标识*/
-    String SESSION_LOGIN_USER = "SESSION_LOGIN_USER";
-    /*登录用户session*/
-    String SESSION_LOGIN_USER_SESSION = "SESSION_LOGIN_USER_SESSION";
     /*注册用户标识*/
     String SESSION_VCODE_USER = "SESSION_VCODE_USER";
-
-    /*JSESSIONID*/
-    String JSESSIONID = "JSESSIONID";
-
-    /*redis端key前缀*/
-    String COMMON_SESSION_PREFIX = "PORTAL_SESSION";
 
     /*Android*/
     Integer APP_TYPE_ANDROID = 1;

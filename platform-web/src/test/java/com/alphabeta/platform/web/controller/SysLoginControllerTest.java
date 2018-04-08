@@ -1,11 +1,10 @@
 package com.alphabeta.platform.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alphabeta.platform.base.common.Const;
-import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.base.domain.model.SysUser;
+import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.util.SessionUtil;
+import com.alphabeta.platform.core.web.util.SessionUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.alphabeta.platform.base.common.ErrorCode.USER_SESSION_TIMEOUT;
+import static com.alphabeta.platform.core.web.common.Const.SESSION_LOGIN_USER;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -45,7 +44,7 @@ public class SysLoginControllerTest extends BaseControllerTest {
     public void login() throws Exception {
         String url = "/v1/sys/login";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("phone", "13819493701");
         params.put("password", "123456");
         BaseParam param = new BaseParam();
@@ -83,7 +82,7 @@ public class SysLoginControllerTest extends BaseControllerTest {
         JSONObject jsonResult = JSONObject.parseObject(result);
         JSONObject sysUserLogin = jsonResult.getJSONObject("result");
         assertNull(sysUserLogin);
-        Object userObj = httpSession.getAttribute(Const.SESSION_LOGIN_USER);
+        Object userObj = httpSession.getAttribute(SESSION_LOGIN_USER);
         assertNull(userObj);
         try {
             SysUser sysUser = (SysUser) SessionUtil.getSessionUser();

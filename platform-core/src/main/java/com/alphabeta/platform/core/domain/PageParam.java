@@ -1,6 +1,7 @@
 package com.alphabeta.platform.core.domain;
 
-import com.alphabeta.platform.core.common.Const;
+import static com.alphabeta.platform.core.common.Const.PAGE_PAGENUM_DEFAULT;
+import static com.alphabeta.platform.core.common.Const.PAGE_PAGESIZE_DEFAULT;
 
 /**
  * 返回分页参数基类
@@ -13,14 +14,14 @@ public class PageParam {
     private Integer pageSize;
 
     public PageParam() {
-        this.pageNum = Const.PAGE_PAGENUM_DEFAULT;
-        this.pageSize = Const.PAGE_PAGESIZE_DEFAULT;
+        this.pageNum = PAGE_PAGENUM_DEFAULT;
+        this.pageSize = PAGE_PAGESIZE_DEFAULT;
     }
 
 
     public PageParam(Integer pageNum) {
         this.pageNum = pageNum;
-        this.pageSize = Const.PAGE_PAGESIZE_DEFAULT;
+        this.pageSize = PAGE_PAGESIZE_DEFAULT;
     }
 
 

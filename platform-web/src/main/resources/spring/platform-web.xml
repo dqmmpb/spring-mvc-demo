@@ -9,7 +9,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <import resource="classpath:spring/platform-base.xml"/>
+  <import resource="classpath:spring/platform-web-base.xml"/>
   <import resource="classpath:config/spring-redis.xml"/>
 
   <!-- 配置文件 -->
@@ -25,7 +25,6 @@
   <!-- 配置注解扫描路径 -->
   <context:component-scan base-package="com.alphabeta.platform.web.controller" use-default-filters="false">
     <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
   </context:component-scan>
 
   <!-- 启动对@AspectJ注解的支持 -->
@@ -43,7 +42,25 @@
     </aop:aspect>
   </aop:config>
 
-  <!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->
-  <bean class="com.alphabeta.platform.base.spring.SpringContextHolder" lazy-init="false"/>
+  <!-- 国际化资源文件 -->
+  <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->
+    <property name="useCodeAsDefaultMessage" value="true"/>
+    <!-- 解决中文乱码 -->
+    <property name="defaultEncoding" value="UTF-8"/>
+    <property name="basenames">
+      <list>
+        <value>classpath:i18n/core_messages</value>
+        <value>classpath:i18n/core_messages</value>
+        <value>classpath:i18n/base_messages</value>
+        <value>classpath:i18n/messages</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- 存储区域设置信息 -->
+  <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+    <property name="defaultLocale" value="zh"/>
+  </bean>
 
 </beans>

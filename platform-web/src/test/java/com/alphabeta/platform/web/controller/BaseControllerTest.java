@@ -61,7 +61,7 @@ public abstract class BaseControllerTest extends BaseTest {
         if (forceLogin) {
             String url = "/v1/sys/login";
 
-            Map params = new HashMap();
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("phone", phone);
             params.put("password", password);
             BaseParam param = new BaseParam();

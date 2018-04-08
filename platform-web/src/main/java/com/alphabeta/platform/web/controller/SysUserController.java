@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
 import com.alphabeta.platform.base.domain.model.SysUser;
-import com.alphabeta.platform.base.util.SessionUtil;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.domain.PageParam;
 import com.alphabeta.platform.core.exception.BaseAppException;
+import com.alphabeta.platform.core.web.util.SessionUtil;
 import com.alphabeta.platform.web.service.SysUserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -226,7 +226,7 @@ public class SysUserController extends BaseController {
         String filter = (String) params.get("filter");
 
         List<SysUser> sysUserList = sysUserService.queryUsers(filter, pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysUserList);
+        PageInfo<SysUser> page = new PageInfo<SysUser>(sysUserList);
         BaseResult result = new BaseResult();
         result.setResult(page);
         return result;
