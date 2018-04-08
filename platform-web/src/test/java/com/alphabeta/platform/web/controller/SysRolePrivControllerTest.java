@@ -21,7 +21,7 @@ public class SysRolePrivControllerTest extends BaseControllerTest {
     public void addRolePriv() throws Exception {
         String url = "/v1/sys/rolepriv/add";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("roleId", 3);
         params.put("privId", 1);
         BaseParam param = new BaseParam();
@@ -46,7 +46,7 @@ public class SysRolePrivControllerTest extends BaseControllerTest {
     public void deleteRolePriv() throws Exception {
         String url = "/v1/sys/rolepriv/delete";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("roleId", 3);
         params.put("privId", 1);
         BaseParam param = new BaseParam();

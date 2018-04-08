@@ -3,13 +3,13 @@ package com.alphabeta.platform.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
+import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.domain.PageParam;
 import com.alphabeta.platform.core.exception.BaseAppException;
 import com.alphabeta.platform.core.util.ObjectUtil;
-import com.alphabeta.platform.base.domain.model.SysPriv;
 import com.alphabeta.platform.web.service.SysPrivService;
 import com.alphabeta.platform.web.service.SysRoleService;
 import com.github.pagehelper.Page;
@@ -158,7 +158,7 @@ public class SysPrivController extends BaseController {
         } catch (Exception e) {
             logger.info("privs list get error, will return empty list");
         }
-        PageInfo page = new PageInfo(sysPrivList);
+        PageInfo<SysPriv> page = new PageInfo<SysPriv>(sysPrivList);
         result.setResult(page);
         return result;
 
@@ -233,7 +233,7 @@ public class SysPrivController extends BaseController {
 
         BaseResult result = new BaseResult();
         List<SysPriv> sysPrivList = sysPrivService.queryPrivs(pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysPrivList);
+        PageInfo<SysPriv> page = new PageInfo<SysPriv>(sysPrivList);
         result.setResult(page);
 
         return result;

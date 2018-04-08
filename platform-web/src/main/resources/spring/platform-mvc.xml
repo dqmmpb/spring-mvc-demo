@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd">
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
   <import resource="classpath:spring/platform-web.xml"/>
 
   <mvc:annotation-driven/>
-
-  <context:component-scan base-package="com.alphabeta.platform.web.controller" use-default-filters="false">
-    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-  </context:component-scan>
 
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/views/"/>
@@ -65,62 +57,42 @@
 
   <bean id="fastJsonViewResponseBodyAdvice" class="com.alibaba.fastjson.support.spring.FastJsonViewResponseBodyAdvice"/>
 
-<!--
+  <!--
 
-  <mvc:annotation-driven>
-    <mvc:message-converters register-defaults="true">
-      &lt;!&ndash; 设置返回字符串编码 &ndash;&gt;
-      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-        <constructor-arg value="UTF-8" index="0"></constructor-arg>
-        <property name="supportedMediaTypes">
-          <list>
-            <value>application/json;charset=UTF-8</value>
-            <value>text/html;charset=UTF-8</value>
-            <value>application/xml;charset=UTF-8</value>
-          </list>
-        </property>
-      </bean>
-      &lt;!&ndash; json转换器 &ndash;&gt;
-      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-        <property name="supportedMediaTypes">
-          <list>
-            <value>application/json;charset=UTF-8</value>
-            <value>text/html;charset=UTF-8</value>
-            <value>application/xml;charset=UTF-8</value>
-          </list>
-        </property>
-        <property name="objectMapper">
-          <bean class="com.fasterxml.jackson.databind.ObjectMapper">
-            <property name="serializationInclusion">
-              <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
-            </property>
-          </bean>
-        </property>
-      </bean>
-    </mvc:message-converters>
-  </mvc:annotation-driven>
+    <mvc:annotation-driven>
+      <mvc:message-converters register-defaults="true">
+        &lt;!&ndash; 设置返回字符串编码 &ndash;&gt;
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+          <constructor-arg value="UTF-8" index="0"></constructor-arg>
+          <property name="supportedMediaTypes">
+            <list>
+              <value>application/json;charset=UTF-8</value>
+              <value>text/html;charset=UTF-8</value>
+              <value>application/xml;charset=UTF-8</value>
+            </list>
+          </property>
+        </bean>
+        &lt;!&ndash; json转换器 &ndash;&gt;
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+          <property name="supportedMediaTypes">
+            <list>
+              <value>application/json;charset=UTF-8</value>
+              <value>text/html;charset=UTF-8</value>
+              <value>application/xml;charset=UTF-8</value>
+            </list>
+          </property>
+          <property name="objectMapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+              <property name="serializationInclusion">
+                <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+              </property>
+            </bean>
+          </property>
+        </bean>
+      </mvc:message-converters>
+    </mvc:annotation-driven>
 
--->
-
-  <!-- 国际化资源文件 -->
-  <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->
-    <property name="useCodeAsDefaultMessage" value="true"/>
-    <!-- 解决中文乱码 -->
-    <property name="defaultEncoding" value="UTF-8"/>
-    <property name="basenames">
-      <list>
-        <value>classpath:i18n/core_messages</value>
-        <value>classpath:i18n/base_messages</value>
-        <value>classpath:i18n/messages</value>
-      </list>
-    </property>
-  </bean>
-
-  <!-- 存储区域设置信息 -->
-  <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-    <property name="defaultLocale" value="zh"/>
-  </bean>
+  -->
 
   <!-- 国际化语言切换 -->
   <mvc:interceptors>

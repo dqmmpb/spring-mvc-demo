@@ -21,7 +21,7 @@ public class SysUserRoleControllerTest extends BaseControllerTest {
     public void addManagerRole() throws Exception {
         String url = "/v1/sys/userrole/add";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 3);
         params.put("roleId", 2);
         BaseParam param = new BaseParam();
@@ -45,7 +45,7 @@ public class SysUserRoleControllerTest extends BaseControllerTest {
     public void delManagerRole() throws Exception {
         String url = "/v1/sys/userrole/delete";
 
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("userId", 3);
         params.put("roleId", 2);
         BaseParam param = new BaseParam();

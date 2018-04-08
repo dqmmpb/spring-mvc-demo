@@ -52,7 +52,7 @@ public final class ResponseUtils {
 
         try {
             // 获取bean，用于日志切面
-            LogProxy logProxy = SpringContextHolder.getBean("logProxy");
+            LogProxy logProxy = SpringContextHolder.getBean("logProxy", LogProxy.class);
             // 方法日志记录, 因为aop不能拦截静态方法，所以在这里中转下
             logProxy.data(request, jsonObj);
         } catch (Exception exception) {

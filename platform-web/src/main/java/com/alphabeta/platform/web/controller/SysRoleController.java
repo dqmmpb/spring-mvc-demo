@@ -3,12 +3,12 @@ package com.alphabeta.platform.web.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonFilter;
 import com.alibaba.fastjson.support.spring.annotation.FastJsonView;
+import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.core.annotation.RequiresPermissions;
 import com.alphabeta.platform.core.domain.BaseParam;
 import com.alphabeta.platform.core.domain.BaseResult;
 import com.alphabeta.platform.core.domain.PageParam;
 import com.alphabeta.platform.core.exception.BaseAppException;
-import com.alphabeta.platform.base.domain.model.SysRole;
 import com.alphabeta.platform.web.service.SysRoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -194,7 +194,7 @@ public class SysRoleController extends BaseController {
 
         BaseResult result = new BaseResult();
         List<SysRole> sysRoleList = sysRoleService.queryRoles(pageParam.getPageNum(), pageParam.getPageSize());
-        PageInfo page = new PageInfo(sysRoleList);
+        PageInfo<SysRole> page = new PageInfo<SysRole>(sysRoleList);
         result.setResult(page);
 
         return result;
